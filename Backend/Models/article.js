@@ -9,14 +9,19 @@ const articleSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["draft", "published", "rejected", "pending"],
-    default: "draft",
+    default: "draft"
   },
   premium: { type: Boolean, default: false },
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    required: true
   },
+  tag_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Tag",
+    required: true
+  }
 });
 
 module.exports = mongoose.model("Article", articleSchema);
