@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--css-->
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/categoryNavbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="/css/writer.css">
+    <link rel="stylesheet" href="/css/editor.css">
+    <link rel="stylesheet" href="/css/administrator.css">
+    <!-- google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+    <!--Owl slick -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+        integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+        integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <!--navbar-->
+    <nav class="navbar">
+        <div class="nav_div">
+            <div class="nav_left">
+                <ul>
+                    <li class="nav_brand"><a href="/">Gr6'S News</a></li>
+                    <li>
+                        <p>5th November, 2024</p>
+                    </li>
+                    <li>
+                        <p>TP.HCM</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav_right">
+                <ul>
+                    <li><a href="#">Latest</a></li>
+                    <li><a href="#">News By Region</a></li>
+                    <li><a href="#">International News</a></li>
+                    <li>
+                        <form class="d-flex" role="search">
+                            <input class="me-2 search" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btnSearch" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+                            </button>
+                        </form>
+                    </li>
+                    <li><a href="/login">Log In</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--categories Navbar-->
+    <nav class="category_nav">
+        <ul>
+            <li><a href="/">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-house" viewBox="0 0 16 16">
+                        <path
+                            d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                    </svg>
+                </a>
+            </li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Viewpoint</a></li>
+            <li><a href="#">World</a></li>
+            <li><a href="#">Video</a></li>
+            <li><a href="#">Podcasts</a></li>
+            <li><a href="#">Business</a></li>
+            <li><a href="#">Real Estate</a></li>
+            <li><a href="#">Science</a></li>
+            <li><a href="#">Entertainment</a></li>
+            <li><a href="#">Sport</a></li>
+            <li><a href="#">Law</a></li>
+            <li><a href="#">Education</a></li>
+            <li><a href="#">Health</a></li>
+            <li><a href="#">Life</a></li>
+            <li><a href="#">Tourism</a></li>
+            <li><a href="#">Digitalizaion</a></li>
+            <li><a href="#">Cart</a></li>
+            <li><a href="#">Option</a></li>
+            <li><a href="#">Confide</a></li>
+            <!--mega menu-->
+            <li class="dropdown">
+
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </a>
+
+                <div class="mega-menu">
+                    <div class="submenu-container">
+
+                        <div class="submenu">
+                            <h4>News</h4>
+                            <ul>
+                                <li><a href="#">Politics</a></li>
+                                <li><a href="#">People</a></li>
+                                <li><a href="#">Labor - Employment</a></li>
+                                <li><a href="#">Traffic</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Viewpoint</h4>
+                            <ul>
+                                <li><a href="#">Comment more</a></li>
+                                <li><a href="#">Politics & Policy</a></li>
+                                <li><a href="#">Health & Medicine</a></li>
+                                <li><a href="#">Business & Management</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>World</h4>
+                            <ul>
+                                <li><a href="#">Documents</a></li>
+                                <li><a href="#">Analysis</a></li>
+                                <li><a href="#">Vietnamese around the world</a></li>
+                                <li><a href="#">Life here and there</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Video</h4>
+                            <ul>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">Rhythm of life</a></li>
+                                <li><a href="#">Food</a></li>
+                                <li><a href="#">Law</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Business</h4>
+                            <ul>
+                                <li><a href="#">NetZero</a></li>
+                                <li><a href="#">International</a></li>
+                                <li><a href="#">Business</a></li>
+                                <li><a href="#">Stock</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Science</h4>
+                            <ul>
+                                <li><a href="#">Domestic Science</a></li>
+                                <li><a href="#">PII Index</a></li>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">Invented</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Entertainment</h4>
+                            <ul>
+                                <li><a href="#">Celebrity</a></li>
+                                <li><a href="#">Book</a></li>
+                                <li><a href="#">Video</a></li>
+                                <li><a href="#">Movie</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Sport</h4>
+                            <ul>
+                                <li><a href="#">AFF Cup 2024</a></li>
+                                <li><a href="#">Football</a></li>
+                                <li><a href="#">Match schedule</a></li>
+                                <li><a href="#">Marathon</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Health</h4>
+                            <ul>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">Diseases</a></li>
+                                <li><a href="#">Live healthy</a></li>
+                                <li><a href="#">Vaccine</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Life</h4>
+                            <ul>
+                                <li><a href="#">Rhythm of life</a></li>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Life Lessons</a></li>
+                                <li><a href="#">Cooking</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Tourism</h4>
+                            <ul>
+                                <li><a href="#">Destination</a></li>
+                                <li><a href="#">Cuisine</a></li>
+                                <li><a href="#">Footprint</a></li>
+                                <li><a href="#">Advise</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Digitalization</h4>
+                            <ul>
+                                <li><a href="#">Technology</a></li>
+                                <li><a href="#">Product</a></li>
+                                <li><a href="#">Blockchain</a></li>
+                                <li><a href="#">Experience</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Car</h4>
+                            <ul>
+                                <li><a href="#">Market</a></li>
+                                <li><a href="#">Car Awards 2024</a></li>
+                                <li><a href="#">Forum</a></li>
+                                <li><a href="#">V-Car</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="submenu">
+                            <h4>Opinion</h4>
+                            <ul>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">Life</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+    </nav>
+
+    {{{body}}}
+
+    <!--footer-->
+    <footer>
+        <div class="footer_container">
+            <div class="footr_details_one">
+                <h3>Get to Know US</h3>
+                <p>About us</p>
+                <p>Careers</p>
+                <p>Press Releases</p>
+                <p>Our Cares Service</p>
+            </div>
+            <div class="footr_details_one">
+                <h3>Connect with Us</h3>
+                <p>Facebook</p>
+                <p>Twitter</p>
+                <p>Instagram</p>
+            </div>
+            <div class="footr_details_one forres">
+                <h3>Make Money with Us</h3>
+                <p>Facebook</p>
+                <p>Twitter</p>
+                <p>Instagram</p>
+            </div>
+        </div>
+        <div class="lastdetails">
+            <p>Conditions of Use & Sale &nbsp; &nbsp;&nbsp; Privacy Notice &nbsp; &nbsp;&nbsp; Interest-Based
+                Ads &nbsp; &nbsp;&nbsp; © 2024-{year}, Inc. or its affiliates</p>
+        </div>
+    </footer>
+
+    <!--Owl SLick-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <Script src="/js/Scripts.js"> </Script>
+</body>
+
+</html>
