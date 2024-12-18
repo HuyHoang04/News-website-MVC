@@ -4,6 +4,12 @@ body {
     padding: 0;
 }
 
+.logo {
+    height: 90px;  /* Adjust the height of the logo */
+    width: auto;
+    display: block;
+}
+
 .navbar {
     background: #232F3E;
     font-family: calibri;
@@ -79,4 +85,6 @@ body {
     margin: 0 10px;
 }
 
-
+.navbar li a:hover {
+    color: #E74C3C; /* Crimson Red for hover effect */
+}

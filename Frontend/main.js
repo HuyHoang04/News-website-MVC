@@ -19,6 +19,10 @@ app.get('/', function rootHandler(req, res) {
     res.render('home');
 });
 
+app.get('/details', function rootHandler(req, res) {
+    res.render('details');
+});
+
 app.get('/login', function rootHandler(req, res) {
     res.render('login');
 });

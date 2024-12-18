@@ -34,6 +34,9 @@
     list-style: none;
 }
 
+.category_nav li a:hover {
+    color: #E74C3C; /* Crimson Red for hover effect */
+}
 
 .category_nav, .dropdown {
     position: relative; 

@@ -6,30 +6,7 @@
     min-height: 100vh;
     align-items: center;
     margin: 0;
-    background-color: #e0f7fa;
-}
-
-.login-body .header {
-    display: flex;
-    gap: 10px;
-    background-color: #ffffff;
-    padding: 20px;
-    width: 100%;
-    justify-content: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.login-body .header-button {
-    background-color: #e0e0e0;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
-}
-
-.login-body .header-button:hover {
-    background-color: #d4d4d4;
+    background-color: #f4f4f4;
 }
 
 .login-body .register-container {
@@ -88,6 +65,15 @@
 }
 
 .login-body .btn-primary:hover {
+    background-color: #004d40;
+}
+
+.login-body .btn-premium {
+    background-color: #00796b;
+    color: #fff;
+}
+
+.login-body .btn-premium{
     background-color: #004d40;
 }
 

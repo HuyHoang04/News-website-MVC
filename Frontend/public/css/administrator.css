@@ -1,38 +1,16 @@
 /* Scoped styles within .admin-dashboard */
 .admin-dashboard {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
 }
 
 .admin-dashboard header {
-    background-color: #333;
+    background-color: #232F3E;
     color: white;
     text-align: center;
     padding: 1rem;
-}
-
-.admin-dashboard nav {
-    background-color: #444;
-    padding: 1rem;
-}
-
-.admin-dashboard nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-}
-
-.admin-dashboard nav ul li {
-    margin: 0 1rem;
-}
-
-.admin-dashboard nav ul li a {
-    color: white;
-    text-decoration: none;
 }
 
 .admin-dashboard main {
@@ -68,14 +46,14 @@
 .admin-dashboard button {
     padding: 0.5rem 1rem;
     border: none;
-    background-color: #333;
+    background-color: #131A22;
     color: white;
     cursor: pointer;
     margin-right: 0.5rem;
 }
 
 .admin-dashboard button:hover {
-    background-color: #555;
+    background-color: #232F3E;
 }
 
 .admin-dashboard select {
@@ -84,9 +62,3 @@
     background-color: white;
 }
 
-.admin-dashboard footer {
-    text-align: center;
-    background-color: #333;
-    color: white;
-    padding: 1rem;
-}

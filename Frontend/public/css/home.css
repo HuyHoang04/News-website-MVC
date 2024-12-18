@@ -7,7 +7,7 @@ body {
     width: 100%;
 }
 
-.custom-container ul {
+.custom-container ul { 
     list-style: none;
 }
 
@@ -23,6 +23,22 @@ body {
 
 .carousel-title {
     padding: 15px 0 15px 30px;
+}
+
+.btnSearch:hover {
+    color: #E74C3C;
+}
+
+a img {
+    display: block; 
+    width: 100%; 
+    border-radius: 10px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+a:hover img {
+    transform: scale(0.95); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Adds a shadow on hover */
 }
 
 /* Mega Menu */
@@ -141,6 +157,10 @@ body {
     color: #000;
 }
 
+.item a:hover {
+    color: #E74C3C;
+}
+
 /* Main Content */
 .custom-container a {
     padding: 15px 0;
@@ -162,7 +182,7 @@ body {
 }
 
 .custom-container a:hover {
-    color: #7ac64d;
+    color: #E74C3C;
 }
 
 /* Left Container */
@@ -194,7 +214,6 @@ body {
 }
 
 .container-bottom-left {
-    background: #f3f3f3;
     margin: 15px 30px;
 }
 

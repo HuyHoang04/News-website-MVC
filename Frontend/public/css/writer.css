@@ -47,7 +47,7 @@
 
 .article-management .form-section form button {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #131A22;
     color: white;
     border: none;
     border-radius: 4px;
@@ -55,7 +55,7 @@
 }
 
 .article-management .form-section form button:hover {
-    background-color: #45a049;
+    background-color: #232F3E;
 }
 
 /* Article list section */
@@ -93,7 +93,7 @@
 
 .article-management .article-list button {
     padding: 6px 12px;
-    background-color: #007BFF;
+    background-color: #131A22;
     color: white;
     border: none;
     border-radius: 4px;
@@ -101,5 +101,5 @@
 }
 
 .article-management .article-list button:hover {
-    background-color: #0056b3;
+    background-color: #232F3E;
 }
