@@ -5,9 +5,9 @@ const port = 3000;
 
 await connectDB();
 
-import { createSampleTags } from "./utils/sampletag.js";
+// import { createSampleTags } from "./utils/sampletag.js";
 
-createSampleTags();
+// createSampleTags();
 
 app.get("/", (req, res) => res.send("Hello World!"));
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
