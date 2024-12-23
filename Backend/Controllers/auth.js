@@ -1,12 +1,8 @@
-import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../Models/user.js"; // Assuming the userSchema is in the 'models/user.js' file
 
-const router = express.Router();
-
 // Secret key for JWT
-const JWT_SECRET = "your_secret_key_here";
 
 // Register Route
 router.post("/register", async (req, res) => {
