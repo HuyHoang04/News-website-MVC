@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
-const categorySchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  content: { type: String, required: true, unique: true }
+const tagSchema = new mongoose.Schema({
+  name: { type: String, required: true, unique: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
-export const Category = mongoose.model("Tag", tagSchema);
+const Tag = mongoose.model("Tag", tagSchema);
