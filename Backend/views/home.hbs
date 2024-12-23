@@ -4,13 +4,15 @@
   
   <div class="item">
     <article>
-      <a href="">
+      <a href="/details?id={{article._id}}">
         <img src="{{article.image_url.[0]}}" alt="{{article.title}}">
       </a>
       <div>
-        <h3>
-          {{article.title}} 
-        </h3>
+        <a href="/details?id={{article._id}}">
+          <h3>
+            {{article.title}} 
+          </h3>
+        </a>
         <p>Category: {{this.category.name}}</p>
        <p class="text-body-secondary">Tags: 
           {{#each article.tags as |tag|}}
@@ -19,7 +21,7 @@
         </p>
         <p class="text-body-secondary">{{article.updatedAt}}</p>
          <p>Views: {{this.views}}</p>
-        <a href="/">Read More</a>
+        <a href="/details?id={{article._id}}">Read More</a>
       </div>
     </article>
   </div>
@@ -31,7 +33,7 @@
   {{#each latestArticlesFromCategories}}
   <div class="item">
     <article>
-      <a href="{{this.link}}"><img src="{{this.image_url.[0]}}" alt="{{this.title}}"></a>
+      <a href="/details?id={{this._id}}"><img src="{{this.image_url.[0]}}" alt="{{this.title}}"></a>
       <div>
         <h3>{{this.title}} </h3>
         <p>Category: {{this.category.name}}</p>
@@ -42,20 +44,21 @@
         </p>
         <p class="text-body-secondary">{{this.updatedAt}}</p>
         <p>Views: {{this.views}}</p>
-        <a href="{{this.link}}">Read More</a>
+        <a href="/details?id={{this._id}}">Read More</a>
       </div>
     </article>
   </div>
   {{/each}}
 </div>
 
+{{!-- asddddddddddddddddddddddddddd --}}
 
 
-<section class="main-container-left">
 
+<section class="main-container-left">   
   {{#each popularArticles}}
   <article>
-    <a href="{{this.link}}"><img src="{{this.image_url.[0]}}" alt="{{this.title}}"></a>
+    <a href="/details?id={{this._id}}"><img src="{{this.image_url.[0]}}" alt="{{this.title}}"></a>
     <div>
         <p>Category: {{this.category.name}}</p>
         <p class="text-body-secondary">Tags: 
@@ -65,7 +68,7 @@
         </p>
         <p class="text-body-secondary">{{this.updatedAt}}</p>
         <p>Views: {{this.views}}</p>
-      <a href="{{this.link}}">Read More</a>
+      <a href="/details?id={{this._id}}">Read More</a>
     </div>
   </article>
   {{/each}}
@@ -87,14 +90,14 @@
         <!-- Top Left Container (for the first article) -->
         <div class="container-top-left">
             <article>
-                <a href="{{article1.link}}">
+                <a href="/details?id={{article1._id}}">
                     <img src="{{article1.image_url.[0]}}" alt="{{article1.title}}">
                 </a>
                 <div>
                     <p>Category: {{article1.category.name}}</p>
                     <p class="text-body-secondary">{{article1.updatedAt}}</p>
                     <p>Views: {{article1.views}}</p>
-                    <a href="{{article1.link}}">Read More</a>
+                    <a href="/details?id={{article1._id}}">Read More</a>
                 </div>
             </article>
         </div>
@@ -102,26 +105,26 @@
  <!-- Bottom Left Container (for the second and third articles) -->
         <div class="container-bottom-left">
             <article>
-                <a href="{{article2.link}}">
+                <a href="/details?id={{article2._id}}">
                     <img src="{{article2.image_url.[0]}}" alt="{{article2.title}}">
                 </a>
                 <div>
                     <p>Category: {{article2.category.name}}</p>
                     <p class="text-body-secondary">{{article2.updatedAt}}</p>
                     <p>Views: {{article2.views}}</p>
-                    <a href="{{article2.link}}">Read More</a>
+                    <a href="/details?id={{article2._id}}">Read More</a>
                 </div>
             </article>
 
             <article>
-                <a href="{{article3.link}}">
+                <a href="/details?id={{article3._id}}">
                     <img src="{{article3.image_url.[0]}}" alt="{{article3.title}}">
                 </a>
                 <div>
                     <p>Category: {{article3.category.name}}</p>
                     <p class="text-body-secondary">{{article3.updatedAt}}</p>
                     <p>Views: {{article3.views}}</p>
-                    <a href="{{article3.link}}">Read More</a>
+                    <a href="/details?id={{article3._id}}">Read More</a>
                 </div>
             </article>
         </div>
@@ -136,9 +139,9 @@
             <div>
                 <h2>{{this.title}}</h2>
                 <p></p>
-                <a href="#">Read More</a>
+                <a href="/details?id={{this._id}}">Read More</a>
             </div>
-            <a href="#"><img src="{{this.image_url.[0]}}" alt="Right News"></a>
+            <a href="/details?id={{this._id}}"><img src="{{this.image_url.[0]}}" alt="Right News"></a>
         </article>
         {{/each}}
 

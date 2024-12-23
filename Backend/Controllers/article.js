@@ -10,7 +10,7 @@ export const articleController = {
 
     const articles = await Article.find({
       status: "published",
-      createdAt: { $gte: lastWeekDate },
+      createdAt: { $gte: lastWeekDate }
     })
       .sort({ views: -1 }) // Sort by views descending
       .limit(4) // Get top 4 articles
@@ -51,7 +51,7 @@ export const articleController = {
     for (const category of categories) {
       const article = await Article.findOne({
         category: category._id,
-        status: "published",
+        status: "published"
       })
         .sort({ createdAt: -1 }) // Sort by creation date descending
         .populate("category")
@@ -65,4 +65,27 @@ export const articleController = {
     }
     return latestArticles;
   },
+  // Get a single article by ID
+  getArticleById: async (id) => {
+    if (!id) {
+      console.error("ID is required");
+      return null;
+    }
+    //const objectId = new mongoose.Types.ObjectId(id);
+    try {
+      const article = await Article.findById(id)
+        .populate("author", "username")
+        .populate("category", "name") // Optionally populate category details
+        .populate("tags", "name") // Optionally populate tag details
+        .lean();
+
+      if (!article) {
+        console.error("Không có article này:", error);
+        return null;
+      }
+      return article;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 };

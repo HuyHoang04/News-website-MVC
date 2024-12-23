@@ -293,7 +293,7 @@ app.get("/", function rootHandler(req, res) {
     article3: articles[2],
     topViewedArticles: topViewedArticles,
     newestArticles: newestArticles,
-    latestArticlesFromCategories: latestArticlesFromCategories,
+    latestArticlesFromCategories: latestArticlesFromCategories
   });
 });
 
@@ -326,10 +326,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
-import { getArticleById } from "./Controllers/article.js";
 app.get("/details", async function rootHandler(req, res) {
   const id = req.query.id || 0;
-  const data = await getArticleById(id);
+  const data = await articleController.getArticleById(id);
   if (!data) {
     return res.send("No data");
   }
