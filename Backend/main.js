@@ -283,6 +283,8 @@ const topViewedArticles = await articleController.getTop10MostViewedArticles();
 
 const newestArticles = await articleController.getTop10NewestArticles();
 
+const newest5Articles = await articleController.getTop5NewestArticles();
+
 const latestArticlesFromCategories =
   await articleController.getLatestArticleFromEachCategory();
 app.get("/", function rootHandler(req, res) {
@@ -333,7 +335,8 @@ app.get("/details", async function rootHandler(req, res) {
     return res.send("No data");
   }
   res.render("details", {
-    article: data
+    article: data,
+    newest5Articles: newest5Articles
   });
 });
 

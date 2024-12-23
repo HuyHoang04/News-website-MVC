@@ -39,33 +39,15 @@
 
             <div class="right">
                 <h3 class="heading-3">
-                    5 random news
+                    Top 5 Latest News
                 </h3>
                 <div class="lists">
+                    {{#each newest5Articles as |article|}}
                     <div class="list">
-                        <a href="#"><img src="https://i.ibb.co/QmVTWFS/cat-2.jpg" alt="photo 1"></a>
-                        <p><a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, sunt.</a></p>
+                        <a href="/details?id={{article._id}}"><img src="{{article.image_url}}" alt="photo 1"></a>
+                        <p style="font-weight: bold"><a href="/details?id={{article._id}}">{{article.title}}</a></p>
                     </div>
-
-                    <div class="list">
-                        <a href="#"><img src="https://i.ibb.co/QmVTWFS/cat-2.jpg" alt="photo 1"></a>
-                        <p><a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, sunt.</a></p>
-                    </div>
-
-                    <div class="list">
-                        <a href="#"><img src="https://i.ibb.co/QmVTWFS/cat-2.jpg" alt="photo 1"></a>
-                        <p><a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, sunt.</a></p>
-                    </div>
-
-                    <div class="list">
-                        <a href="#"><img src="https://i.ibb.co/QmVTWFS/cat-2.jpg" alt="photo 1"></a>
-                        <p><a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, sunt.</a></p>
-                    </div>
-
-                    <div class="list">
-                        <a href="#"><img src="https://i.ibb.co/QmVTWFS/cat-2.jpg" alt="photo 1"></a>
-                        <p><a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, sunt.</a></p>
-                    </div>
+                    {{/each}}
                 </div>
             </div>
         </div>

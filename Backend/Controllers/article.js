@@ -43,6 +43,17 @@ export const articleController = {
 
     return articles;
   },
+  getTop5NewestArticles: async () => {
+    const articles = await Article.find({ status: "published" })
+      .sort({ createdAt: -1 }) // Sort by creation date descending
+      .limit(5) // Get top 10 articles
+      .populate("category")
+      .populate("tags")
+      .populate("author")
+      .lean();
+
+    return articles;
+  },
   getLatestArticleFromEachCategory: async () => {
     const categories = await Category.find();
 
