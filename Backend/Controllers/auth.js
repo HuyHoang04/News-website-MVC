@@ -3,19 +3,17 @@ import jwt from "jsonwebtoken";
 import { User } from "../Models/user.js"; // Assuming the userSchema is in the 'models/user.js' file
 
 // Secret key for JWT
-
+const JWT_SECRET = "secret";
 // Register Route
-router.post("/register", async (req, res) => {
-  const {
-    username,
-    password,
-    email,
-    full_name,
-    pen_name,
-    role,
-    subscription_expiration,
-  } = req.body;
-
+export async function register(
+  username,
+  password,
+  email,
+  full_name,
+  pen_name,
+  role,
+  subscription_expiration
+) {
   try {
     // Check if the user already exists
     const userExists = await User.findOne({ username });
@@ -44,7 +42,7 @@ router.post("/register", async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
-});
+}
 
 export async function login(username, password) {
   try {

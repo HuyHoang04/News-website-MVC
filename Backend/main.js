@@ -5,10 +5,12 @@ import { login } from "./Controllers/auth.js";
 import { User } from "./Models/user.js";
 import bcrypt from "bcryptjs";
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Serve static files from the 'public' folder
 app.use(express.static("public"));
-const JWT_SECRET = "secret";
+
 // Set up Handlebars view engine
 app.engine("hbs", engine());
 app.set("view engine", "hbs");
@@ -83,6 +85,7 @@ app.get("/", function rootHandler(req, res) {
 });
 
 app.post("/login", async (req, res) => {
+  console.log(req.body);
   const { username, password } = req.body;
   try {
     const result = await login(username, password);
@@ -91,7 +94,12 @@ app.post("/login", async (req, res) => {
     }
 
     const { role, token } = result;
-    res.json({ token });
+
+    res.cookie("token", token, {
+      httpOnly: true, // Không thể truy cập từ JavaScript
+      secure: "production", // Chỉ gửi qua HTTPS trong production
+      maxAge: 3600000, // Cookie tồn tại 1 giờ
+    });
 
     if (role == "administrator") {
       res.redirect("/administrator");
