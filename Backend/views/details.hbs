@@ -1,21 +1,40 @@
 <!--news details-->
 <div class="container">
     <header>
-        <h1 class="heading-1">News Titles</h1>
         <div class="sub-heading">
-            <p>Monday <span>December 9th, 2024</span></p>
-            <p class="imortent">You right to know</p>
+            <div>
+                <div>
+                    <div class="letter"> <p>Create:</p> {{this.article.createdAt}}</div>
+                    <div class="letter"> <p>Update:</p> {{this.article.updatedAt}}</div>
+                    <span style="font-size: 15px;">Tags: </span>
+                    {{#each this.article.tags}}
+                        <span class="badge badge-pill" style="background-color: #f0f0f0; margin-right: 10px; font-size: 12px; font-weight: bold">
+                            {{this.name}}
+                        </span>
+                    {{/each}}
+                </div>
+            </div>
+        <div>
+            <h5>Author: {{article.author.username}}</h5>
+            <h6>
+                Status: {{this.article.status}}
+            </h6>
         </div>
     </header>
 
+    <button type="button" class="btn btn-info">Category: {{this.article.category.name}}</button>
+    
     <div class="main">
         <div class="home">
             <div class="left">
-                <img src="https://i.ibb.co/QmVTWFS/cat-2.jpg" alt="Paper Photos">
-
-                <h2 class="heading-2">
-                    Military plane crashes in Binh Dinh, two pilots missing
-                </h2>
+                <blockquote>
+                    <article>
+                        {{{this.article.content}}}
+                    </article>
+                </blockquote>
+                {{!-- {{#each article.image_url}}
+                    <img src="{{this}}" alt="Paper Photos" />
+                {{/each}} --}}
             </div>
 
             <div class="right">
@@ -51,33 +70,14 @@
             </div>
         </div>
 
-        <article>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Odit veritatis quae quas? Sit, quod perspiciatis sapiente
-                possimus, quos dolore quas inventore officiis nostrum in consequ
-                atur nam molestiae. Cupiditate sint consequuntur enim numquam, it
-                aque doloribus cumque eveniet nihil expedita error officiis?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing el
-                it. Hic quidem ea nobis explicabo magni, enim numqu
-                am accusamus rerum delectus expedita autem! Vitae u
-                t qui aut culpa odio porro quia totam.</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing
-                elit. Voluptatibus, ipsam officia perferendis dicta inventore sequi aliquid nisi laudantium
-                reiciendis possimus!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, placeat. Doloremque dicta mollitia ex,
-                modi quas esse ipsa sapiente quod nisi consequatur, dolores asperiores, id nobis temporibus. Dolores
-                beatae facere at repudiandae quasi delectus, ullam fugit eius reiciendis quidem veniam, voluptatibus nam
-                neque, suscipit voluptate illum natus! Quae, deleniti quas.</p>
-        </article>
-
-        <blockquote>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita pariatur repudiandae officia,
-            cupiditate officiis in. Nesciunt, est quae debitis eveniet consectetur voluptatibus omnis totam corrupti
-            dolorum similique quasi officiis quis atque odit esse error, consequuntur cum facilis explicabo fugit.
-            Ducimus quisquam, aliquam nobis optio natus possimus, ab explicabo vitae vero officiis soluta. Fugit
-            ratione amet deleniti eveniet tempore ea libero voluptas fugiat, in ipsa. Nihil iste est perspiciatis
-            maiores expedita?
-        </blockquote>
+        <div style="margin-bottom: 50px;">
+            <h4>Video</h4>
+            {{#each this.article.video_url}}
+                <div class="video-container">
+                    <iframe width="560" height="315" src="{{this}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            {{/each}}
+        </div>
 
         <div class="cards">
             <div class="card">
@@ -99,9 +99,14 @@
                     atque praesentium sint magni commodi at nostrum, illum quia eum facilis consequatur vitae est
                     soluta ex animi tempore id temporibus impedit itaque. Beatae ipsam magni ducimus magnam?</p>
             </div>
-        </div>
+        </div>    
     </div>
+
 </div>
+
+<p class="views">
+    Lượt đọc: {{this.article.views}} lượt
+</p>
 
 <!--comment-->
 <!--upload comment-->

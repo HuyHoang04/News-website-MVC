@@ -13,14 +13,14 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Set up Handlebars view engine
-app.engine("hbs", engine());
+app.engine("hbs", engine({}));
 app.set("view engine", "hbs");
 app.set("views", "./views");
 await connectDB();
 app.engine(
   "hbs",
   engine({
-    extname: "hbs",
+    extname: "hbs"
   })
 );
 // async function seedUsers() {
@@ -291,7 +291,7 @@ app.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // Không thể truy cập từ JavaScript
       secure: "production", // Chỉ gửi qua HTTPS trong production
-      maxAge: 3600000, // Cookie tồn tại 1 giờ
+      maxAge: 3600000 // Cookie tồn tại 1 giờ
     });
 
     if (role == "administrator") {
@@ -306,8 +306,16 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/details", function rootHandler(req, res) {
-  res.render("details");
+import { getArticleById } from "./Controllers/article.js";
+app.get("/details", async function rootHandler(req, res) {
+  const id = req.query.id || 0;
+  const data = await getArticleById(id);
+  if (!data) {
+    return res.send("No data");
+  }
+  res.render("details", {
+    article: data
+  });
 });
 
 app.get("/login", function rootHandler(req, res) {

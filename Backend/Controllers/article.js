@@ -1,4 +1,7 @@
-import { Article } from "./models/article"; // Assuming the Article model is in 'models/article.js'
+import { Article } from "../models/article.js";
+import { Category } from "../models/category.js";
+import { Tag } from "../models/tag.js";
+import mongoose from "mongoose";
 
 // Get articles by category with pagination
 export const getArticlesByCategory = async (req, res) => {
@@ -11,7 +14,7 @@ export const getArticlesByCategory = async (req, res) => {
     // Fetch articles that match the category ID, and paginate them
     const articles = await Article.find({
       category: categoryId,
-      status: "published",
+      status: "published"
     })
       .skip(skip)
       .limit(Number(limit))
@@ -22,14 +25,14 @@ export const getArticlesByCategory = async (req, res) => {
     // Count total articles in this category for pagination
     const totalArticles = await Article.countDocuments({
       category: categoryId,
-      status: "published",
+      status: "published"
     });
 
     res.status(200).json({
       articles,
       totalArticles,
       totalPages: Math.ceil(totalArticles / limit),
-      currentPage: page,
+      currentPage: page
     });
   } catch (err) {
     console.error(err);
@@ -56,14 +59,14 @@ export const getArticlesByTag = async (req, res) => {
     // Count total articles with this tag for pagination
     const totalArticles = await Article.countDocuments({
       tags: tagId,
-      status: "published",
+      status: "published"
     });
 
     res.status(200).json({
       articles,
       totalArticles,
       totalPages: Math.ceil(totalArticles / limit),
-      currentPage: page,
+      currentPage: page
     });
   } catch (err) {
     console.error(err);
@@ -72,23 +75,27 @@ export const getArticlesByTag = async (req, res) => {
 };
 
 // Get a single article by ID
-export const getArticleById = async (req, res) => {
-  const { id } = req.params;
-
+export const getArticleById = async (id) => {
+  if (!id) {
+    console.error("ID is required");
+    return null;
+  }
+  //const objectId = new mongoose.Types.ObjectId(id);
   try {
     const article = await Article.findById(id)
-      .populate("author", "username") // Optionally populate author details
+      .populate("author", "username")
       .populate("category", "name") // Optionally populate category details
-      .populate("tags", "name"); // Optionally populate tag details
+      .populate("tags", "name") // Optionally populate tag details
+      .lean();
 
     if (!article) {
-      return res.status(404).json({ message: "Article not found" });
+      console.error("Không có article này:", error);
+      return null;
     }
-
+    return article;
     res.status(200).json({ article });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server error" });
   }
 };
 // Create a new article
@@ -101,7 +108,7 @@ export const createArticle = async (req, res) => {
     premium,
     category,
     tags,
-    author,
+    author
   } = req.body;
 
   try {
@@ -114,7 +121,7 @@ export const createArticle = async (req, res) => {
       category,
       tags,
       author,
-      status: "draft", // Default to draft status
+      status: "draft" // Default to draft status
     });
 
     const savedArticle = await newArticle.save();
