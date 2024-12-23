@@ -103,3 +103,52 @@
 .article-management .article-list button:hover {
     background-color: #232F3E;
 }
+
+/* New CSS to display selected tags in a line */
+/* Container for the tags section */
+.tags-container {
+    margin-bottom: 20px;
+}
+
+/* Styling for the select dropdown */
+.tags-container select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styling for the selected tags container */
+.selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.selected-tags .tag {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.selected-tags .tag button {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 8px;  
+    margin-left: 3px;  
+    padding: 0;
+    line-height: 1;
+    width: 10px;  
+    height: 10px; 
+    text-align: center;
+}
+
+/* Styling for the "Selected Tags" text */
+#selected-tags-container p {
+    font-weight: bold;
+    margin-bottom: 5px;
+}

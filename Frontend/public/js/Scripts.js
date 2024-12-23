@@ -47,3 +47,52 @@ function showRejectModal(title) {
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
 }
+
+// ckeditor-init.js
+CKEDITOR.replace('content');
+
+//tag select
+function updateSelectedTags() {
+    var select = document.getElementById("tags");
+    var selectedTags = Array.from(select.selectedOptions).map(option => option.value);
+    var selectedTagsList = document.getElementById("selected-tags-list");
+
+    // Get current tags already displayed in the list
+    var displayedTags = Array.from(selectedTagsList.getElementsByTagName("li")).map(item => item.textContent.trim());
+
+    // Loop through selected tags and display them if not already displayed
+    selectedTags.forEach(tag => {
+        if (!displayedTags.includes(tag)) {
+            var tagItem = document.createElement('div');
+            tagItem.classList.add('tag');
+            tagItem.textContent = tag;
+
+            // Add a delete button next to each tag
+            var deleteButton = document.createElement('button');
+            deleteButton.textContent = 'X';
+            deleteButton.onclick = function() {
+                removeTag(tag, tagItem);
+            };
+
+            tagItem.appendChild(deleteButton);
+            selectedTagsList.appendChild(tagItem);
+        }
+    });
+}
+
+function removeTag(tag, tagItem) {
+    var select = document.getElementById("tags");
+
+    // Deselect the tag in the <select> element
+    Array.from(select.options).forEach(option => {
+        if (option.value === tag) {
+            option.selected = false;
+        }
+    });
+
+    // Remove the tag from the displayed list
+    tagItem.remove();
+}
+
+
+
