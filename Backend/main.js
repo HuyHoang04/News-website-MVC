@@ -81,135 +81,197 @@ app.engine(
 
 // await seedUsers();
 
-import { Category } from "./Models/category.js";
-import { Tag } from "./Models/tag.js";
-import { Article } from "./Models/article.js";
+// import { Category } from "./Models/category.js";
+// import { Tag } from "./Models/tag.js";
+// import { Article } from "./Models/article.js";
 
-const createCategories = async () => {
-  const categories = [
-    { name: "Technology", description: "Latest tech trends and news" },
-    { name: "Health", description: "Health tips and wellness articles" },
-    { name: "Sports", description: "Sports news and updates" },
-  ];
+// const createCategories = async () => {
+//   const categories = [
+//     { name: "Technology", description: "Latest tech trends and news" },
+//     { name: "Health", description: "Health tips and wellness articles" },
+//     { name: "Sports", description: "Sports news and updates" },
+//     { name: "Lifestyle", description: "Lifestyle trends and tips" },
+//     { name: "Business", description: "Business news and entrepreneurship" },
+//     { name: "Entertainment", description: "Movies, music, and pop culture" },
+//     { name: "Education", description: "Educational content and resources" },
+//     { name: "Travel", description: "Travel guides and tips" },
+//     { name: "Food", description: "Food trends, recipes, and nutrition" },
+//     { name: "Science", description: "Science news and discoveries" },
+//     { name: "Art", description: "Art and creativity" },
+//   ];
 
-  const categoryDocuments = await Category.insertMany(categories);
-  return categoryDocuments;
-};
+//   const categoryDocuments = await Category.insertMany(categories);
+//   return categoryDocuments;
+// };
 
-const createTags = async () => {
-  const tags = [
-    { name: "AI" },
-    { name: "Fitness" },
-    { name: "Football" },
-    { name: "Tech" },
-    { name: "Nutrition" },
-    { name: "Basketball" },
-    { name: "Wearables" },
-    { name: "Training" },
-    { name: "Smartphones" },
-    { name: "Workout" },
-  ];
+// const createTags = async () => {
+//   const tags = [
+//     { name: "AI" },
+//     { name: "Fitness" },
+//     { name: "Football" },
+//     { name: "Tech" },
+//     { name: "Nutrition" },
+//     { name: "Basketball" },
+//     { name: "Wearables" },
+//     { name: "Training" },
+//     { name: "Smartphones" },
+//     { name: "Workout" },
+//     { name: "Fashion" },
+//     { name: "Marketing" },
+//     { name: "Movies" },
+//     { name: "Music" },
+//     { name: "Entrepreneurship" },
+//     { name: "Travel Tips" },
+//     { name: "Food Trends" },
+//     { name: "Nutrition Facts" },
+//     { name: "Discoveries" },
+//     { name: "Creativity" },
+//   ];
 
-  const tagDocuments = await Tag.insertMany(tags);
-  return tagDocuments;
-};
+//   const tagDocuments = await Tag.insertMany(tags);
+//   return tagDocuments;
+// };
 
-const createArticles = async (categories, tags) => {
-  const articlesData = [];
+// const createArticles = async (categories, tags) => {
+//   const articlesData = [];
 
-  // Define specific tags for each category
-  const categoryTags = {
-    Technology: [tags[0], tags[3], tags[8]], // AI, Tech, Smartphones
-    Health: [tags[1], tags[4], tags[7]], // Fitness, Nutrition, Training
-    Sports: [tags[2], tags[5], tags[6]], // Football, Basketball, Wearables
-  };
+//   // Define specific tags for each category
+//   const categoryTags = {
+//     Technology: [tags[0], tags[3], tags[8]],
+//     Health: [tags[1], tags[4], tags[7]],
+//     Sports: [tags[2], tags[5], tags[6]],
+//     Lifestyle: [tags[10], tags[9], tags[3]],
+//     Business: [tags[11], tags[12], tags[15]],
+//     Entertainment: [tags[13], tags[14], tags[9]],
+//     Education: [tags[18], tags[7], tags[3]],
+//     Travel: [tags[16], tags[14], tags[17]],
+//     Food: [tags[18], tags[4], tags[19]],
+//     Science: [tags[0], tags[6], tags[19]],
+//     Art: [tags[18], tags[7], tags[6]],
+//   };
 
-  // Define image URLs for each category
-  const categoryImages = {
-    Technology: [
-      "https://via.placeholder.com/600x300?text=Technology+1",
-      "https://via.placeholder.com/600x300?text=Technology+2",
-    ],
-    Health: [
-      "https://via.placeholder.com/600x300?text=Health+1",
-      "https://via.placeholder.com/600x300?text=Health+2",
-    ],
-    Sports: [
-      "https://via.placeholder.com/600x300?text=Sports+1",
-      "https://via.placeholder.com/600x300?text=Sports+2",
-    ],
-  };
+//   // Define image URLs for each category
+//   const categoryImages = {
+//     Technology: [
+//       "https://via.placeholder.com/600x300?text=Technology+1",
+//       "https://via.placeholder.com/600x300?text=Technology+2",
+//     ],
+//     Health: [
+//       "https://via.placeholder.com/600x300?text=Health+1",
+//       "https://via.placeholder.com/600x300?text=Health+2",
+//     ],
+//     Sports: [
+//       "https://via.placeholder.com/600x300?text=Sports+1",
+//       "https://via.placeholder.com/600x300?text=Sports+2",
+//     ],
+//     Lifestyle: [
+//       "https://via.placeholder.com/600x300?text=Lifestyle+1",
+//       "https://via.placeholder.com/600x300?text=Lifestyle+2",
+//     ],
+//     Business: [
+//       "https://via.placeholder.com/600x300?text=Business+1",
+//       "https://via.placeholder.com/600x300?text=Business+2",
+//     ],
+//     Entertainment: [
+//       "https://via.placeholder.com/600x300?text=Entertainment+1",
+//       "https://via.placeholder.com/600x300?text=Entertainment+2",
+//     ],
+//     Education: [
+//       "https://via.placeholder.com/600x300?text=Education+1",
+//       "https://via.placeholder.com/600x300?text=Education+2",
+//     ],
+//     Travel: [
+//       "https://via.placeholder.com/600x300?text=Travel+1",
+//       "https://via.placeholder.com/600x300?text=Travel+2",
+//     ],
+//     Food: [
+//       "https://via.placeholder.com/600x300?text=Food+1",
+//       "https://via.placeholder.com/600x300?text=Food+2",
+//     ],
+//     Science: [
+//       "https://via.placeholder.com/600x300?text=Science+1",
+//       "https://via.placeholder.com/600x300?text=Science+2",
+//     ],
+//     Art: [
+//       "https://via.placeholder.com/600x300?text=Art+1",
+//       "https://via.placeholder.com/600x300?text=Art+2",
+//     ],
+//   };
 
-  // Define videos for each category
-  const categoryVideos = {
-    Technology: [
-      "https://www.youtube.com/embed/dQw4w9WgXcQ", // Example YouTube video
-      "https://www.youtube.com/embed/3JZ_D3ELwOQ", // Another example YouTube video
-    ],
-    Health: [
-      "https://www.youtube.com/embed/hY2PqU5y8P0", // Example YouTube video
-    ],
-    Sports: [
-      "https://www.youtube.com/embed/ktvTqknDobU", // Example YouTube video
-    ],
-  };
+//   // Define videos for each category
+//   const categoryVideos = {
+//     Technology: [
+//       "https://www.youtube.com/embed/dQw4w9WgXcQ",
+//       "https://www.youtube.com/embed/3JZ_D3ELwOQ",
+//     ],
+//     Health: ["https://www.youtube.com/embed/hY2PqU5y8P0"],
+//     Sports: ["https://www.youtube.com/embed/ktvTqknDobU"],
+//     Lifestyle: ["https://www.youtube.com/embed/lX4CVNjmrEY"],
+//     Business: ["https://www.youtube.com/embed/5nGJqXBbP7M"],
+//     Entertainment: ["https://www.youtube.com/embed/tVZEdgKmUt4"],
+//     Education: ["https://www.youtube.com/embed/LZYjF7m3NXY"],
+//     Travel: ["https://www.youtube.com/embed/8eudtJbYtmQ"],
+//     Food: ["https://www.youtube.com/embed/Y8k78a6XG0g"],
+//     Science: ["https://www.youtube.com/embed/0lGJgR9TBBw"],
+//     Art: ["https://www.youtube.com/embed/hO9vdrGe9RU"],
+//   };
 
-  for (let category of categories) {
-    const articleCount = Math.floor(Math.random() * 3) + 10; // 10-12 articles per category
-    for (let i = 0; i < articleCount; i++) {
-      const specificTags = categoryTags[category.name];
-      const images = categoryImages[category.name];
-      const videos = categoryVideos[category.name];
+//   for (let category of categories) {
+//     const articleCount = Math.floor(Math.random() * 3) + 10; // 10-12 articles per category
+//     for (let i = 0; i < articleCount; i++) {
+//       const specificTags = categoryTags[category.name];
+//       const images = categoryImages[category.name];
+//       const videos = categoryVideos[category.name];
 
-      // Create HTML content with embedded images and videos
-      const articleContent = `
-        <h1>Article ${category.name} ${i + 1}</h1>
-        <p>This is a sample content for the ${
-          category.name
-        } article. It includes images and videos:</p>
-        <div>
-          <h2>Images:</h2>
-          <img src="${images[i % images.length]}" alt="Image for ${
-        category.name
-      } article ${i + 1}" width="100%" />
-        </div>
-        <div>
-          <h2>Video:</h2>
-          <iframe width="560" height="315" src="${
-            videos[i % videos.length]
-          }" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      `;
+//       // Create HTML content with embedded images and videos
+//       const articleContent = `
+//         <h1>Article ${category.name} ${i + 1}</h1>
+//         <p>This is a sample content for the ${
+//           category.name
+//         } article. It includes images and videos:</p>
+//         <div>
+//           <h2>Images:</h2>
+//           <img src="${images[i % images.length]}" alt="Image for ${
+//         category.name
+//       } article ${i + 1}" width="100%" />
+//         </div>
+//         <div>
+//           <h2>Video:</h2>
+//           <iframe width="560" height="315" src="${
+//             videos[i % videos.length]
+//           }" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+//         </div>
+//       `;
 
-      const article = {
-        title: `Article ${category.name} ${i + 1}`,
-        content: articleContent,
-        category: category._id,
-        tags: specificTags.map((tag) => tag._id),
-        image_url: [images[i % images.length]], // Cycle through available images
-        video_url: [videos[i % videos.length]], // Cycle through available videos
-        status: "published",
-        author: "6768f1f9ea0ac66458f565ff", // Replace with actual user ID
-      };
-      articlesData.push(article);
-    }
-  }
+//       const article = {
+//         title: `Article ${category.name} ${i + 1}`,
+//         content: articleContent,
+//         category: category._id,
+//         tags: specificTags.map((tag) => tag._id),
+//         image_url: [images[i % images.length]], // Cycle through available images
+//         video_url: [videos[i % videos.length]], // Cycle through available videos
+//         status: "published",
+//         author: "6768f1f9ea0ac66458f56601", // Replace with actual user ID
+//       };
+//       articlesData.push(article);
+//     }
+//   }
 
-  const articles = await Article.insertMany(articlesData);
-  return articles;
-};
+//   const articles = await Article.insertMany(articlesData);
+//   return articles;
+// };
 
-const seedDatabase = async () => {
-  try {
-    const categories = await createCategories();
-    const tags = await createTags();
-    const articles = await createArticles(categories, tags);
-  } catch (error) {
-    console.error("Error seeding database:", error);
-  }
-};
+// const seedDatabase = async () => {
+//   try {
+//     const categories = await createCategories();
+//     const tags = await createTags();
+//     const articles = await createArticles(categories, tags);
+//   } catch (error) {
+//     console.error("Error seeding database:", error);
+//   }
+// };
 
-seedDatabase();
+// seedDatabase();
 
 app.get("/", function rootHandler(req, res) {
   res.render("home");
