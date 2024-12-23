@@ -2,9 +2,10 @@ import express from "express";
 import { engine } from "express-handlebars";
 import { connectDB } from "./utils/db.js";
 import { login } from "./Controllers/auth.js";
-import { User } from "./Models/user.js";
+
 import bcrypt from "bcryptjs";
 
+import { articleController } from "./Controllers/article.js";
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -83,7 +84,10 @@ app.engine(
 
 // import { Category } from "./Models/category.js";
 // import { Tag } from "./Models/tag.js";
-// import { Article } from "./Models/article.js";
+import { Article } from "./Models/article.js";
+import { Category } from "./Models/category.js";
+import { Tag } from "./Models/tag.js";
+import { User } from "./Models/user.js";
 
 // const createCategories = async () => {
 //   const categories = [
@@ -273,8 +277,24 @@ app.engine(
 
 // seedDatabase();
 
+const popularArticles = await articleController.getPopularArticlesThisWeek();
+
+const topViewedArticles = await articleController.getTop10MostViewedArticles();
+
+const newestArticles = await articleController.getTop10NewestArticles();
+
+const latestArticlesFromCategories =
+  await articleController.getLatestArticleFromEachCategory();
 app.get("/", function rootHandler(req, res) {
-  res.render("home");
+  const articles = popularArticles.slice(0, 3);
+  res.render("home", {
+    article1: articles[0],
+    article2: articles[1],
+    article3: articles[2],
+    topViewedArticles: topViewedArticles,
+    newestArticles: newestArticles,
+    latestArticlesFromCategories: latestArticlesFromCategories,
+  });
 });
 
 app.post("/login", async (req, res) => {
