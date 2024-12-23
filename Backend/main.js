@@ -6,14 +6,15 @@ import { login } from "./Controllers/auth.js";
 import bcrypt from "bcryptjs";
 
 import { articleController } from "./Controllers/article.js";
+import { categoryController } from "./Controllers/category.js";
+import { tagController } from "./Controllers/tag.js";
+import { userController } from "./Controllers/user.js";
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Serve static files from the 'public' folder
 app.use(express.static("public"));
 
-// Set up Handlebars view engine
 app.engine("hbs", engine({}));
 app.set("view engine", "hbs");
 app.set("views", "./views");
@@ -21,7 +22,7 @@ await connectDB();
 app.engine(
   "hbs",
   engine({
-    extname: "hbs"
+    extname: "hbs",
   })
 );
 // async function seedUsers() {
@@ -278,13 +279,9 @@ import { User } from "./Models/user.js";
 // seedDatabase();
 
 const popularArticles = await articleController.getPopularArticlesThisWeek();
-
 const topViewedArticles = await articleController.getTop10MostViewedArticles();
-
 const newestArticles = await articleController.getTop10NewestArticles();
-
 const newest5Articles = await articleController.getTop5NewestArticles();
-
 const latestArticlesFromCategories =
   await articleController.getLatestArticleFromEachCategory();
 app.get("/", function rootHandler(req, res) {
@@ -295,7 +292,7 @@ app.get("/", function rootHandler(req, res) {
     article3: articles[2],
     topViewedArticles: topViewedArticles,
     newestArticles: newestArticles,
-    latestArticlesFromCategories: latestArticlesFromCategories
+    latestArticlesFromCategories: latestArticlesFromCategories,
   });
 });
 
@@ -313,7 +310,7 @@ app.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // Không thể truy cập từ JavaScript
       secure: "production", // Chỉ gửi qua HTTPS trong production
-      maxAge: 3600000 // Cookie tồn tại 1 giờ
+      maxAge: 3600000, // Cookie tồn tại 1 giờ
     });
 
     if (role == "administrator") {
@@ -336,7 +333,7 @@ app.get("/details", async function rootHandler(req, res) {
   }
   res.render("details", {
     article: data,
-    newest5Articles: newest5Articles
+    newest5Articles: newest5Articles,
   });
 });
 
@@ -356,8 +353,18 @@ app.get("/editor", function rootHandler(req, res) {
   res.render("editor");
 });
 
-app.get("/administrator", function rootHandler(req, res) {
-  res.render("administrator");
+const allCategories = await categoryController.getAllCategories();
+const allTags = await tagController.getAllTags();
+const getPendingArticles = await articleController.getPendingArticles();
+const getAllUsers = await userController.getAllUsers();
+app.get("/administrator", function (req, res) {
+  console.log(getAllUsers);
+  res.render("administrator", {
+    allCategory: allCategories,
+    allTags: allTags,
+    getPendingArticles: getPendingArticles,
+    getAllUsers: getAllUsers,
+  });
 });
 app.listen(3000, function () {
   console.log("Server started on http://localhost:3000");

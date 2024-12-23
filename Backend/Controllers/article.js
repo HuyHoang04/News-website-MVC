@@ -4,13 +4,22 @@ import { Tag } from "../Models/tag.js";
 import mongoose from "mongoose";
 
 export const articleController = {
+  getPendingArticles: async () => {
+    const articles = await Article.find({ status: "pending" })
+      .populate("category")
+      .populate("tags")
+      .populate("author")
+      .lean();
+
+    return articles;
+  },
   getPopularArticlesThisWeek: async () => {
     const lastWeekDate = new Date();
     lastWeekDate.setDate(lastWeekDate.getDate() - 7); // 7 days ago
 
     const articles = await Article.find({
       status: "published",
-      createdAt: { $gte: lastWeekDate }
+      createdAt: { $gte: lastWeekDate },
     })
       .sort({ views: -1 }) // Sort by views descending
       .limit(4) // Get top 4 articles
@@ -62,7 +71,7 @@ export const articleController = {
     for (const category of categories) {
       const article = await Article.findOne({
         category: category._id,
-        status: "published"
+        status: "published",
       })
         .sort({ createdAt: -1 }) // Sort by creation date descending
         .populate("category")
@@ -98,5 +107,5 @@ export const articleController = {
     } catch (err) {
       console.error(err);
     }
-  }
+  },
 };
