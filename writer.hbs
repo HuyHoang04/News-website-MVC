@@ -1,0 +1,90 @@
+<div class="article-management">
+    <div class="container">
+        <h1>Article Management</h1>
+
+        <!-- New article submission form -->
+        <section class="form-section">
+            <h2>Submit New Article</h2>
+            <form action="/submit_article" method="POST" enctype="multipart/form-data">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required><br><br>
+
+                <label for="summary">Summary:</label>
+                <textarea id="summary" name="summary" required></textarea><br><br>
+
+                <label for="content">Content:</label>
+                <textarea id="content" name="content"></textarea><br><br>
+
+                <label for="category">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="tech">Technology</option>
+                    <option value="politics">Politics</option>
+                    <option value="sports">Sports</option>
+                </select><br><br>
+
+                <div class="tags-container">
+                    <label for="tags">Tags:</label>
+                    <select id="tags" name="tags[]" multiple size="5" onchange="updateSelectedTags()">
+                        <option value="tag1">Tag 1</option>
+                        <option value="tag2">Tag 2</option>
+                        <option value="tag3">Tag 3</option>
+                        <option value="tag4">Tag 4</option>
+                        <option value="tag5">Tag 5</option>
+                    </select><br><br>
+
+                    <div id="selected-tags-container">
+                        <p>Selected Tags:</p>
+                        <div id="selected-tags-list" class="selected-tags"></div>
+                    </div>
+                </div>
+
+                <label for="image">Select Image:</label>
+                <input type="file" id="image" name="image"><br><br>
+
+                <button type="submit">Post Article</button>
+            </form>
+        </section>
+
+        <!-- Article list -->
+        <section class="article-list">
+            <h2>Article List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample data, can be replaced with PHP or JavaScript to display articles from the database -->
+                    <tr>
+                        <td>Technology Article</td>
+                        <td>Technology</td>
+                        <td>Approved</td>
+                        <td><button disabled>Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>Sports Article</td>
+                        <td>Sports</td>
+                        <td>Pending</td>
+                        <td><button disabled>Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>Politics Article</td>
+                        <td>Politics</td>
+                        <td>Rejected</td>
+                        <td><button>Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>Economics Article</td>
+                        <td>Economics</td>
+                        <td>Not Reviewed</td>
+                        <td><button>Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
