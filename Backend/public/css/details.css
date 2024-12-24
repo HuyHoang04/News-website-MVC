@@ -126,11 +126,26 @@
     break-inside: avoid
 }
 
+.tags {
+    background-color: #f0f0f0; 
+    margin-right: 10px; 
+    font-size: 12px; 
+    font-weight: bold
+}
+
+.tags:hover {
+    background-color: #888;
+}
+
 .views {
     display: flex;
     justify-content: flex-end;
     margin-right: 200px;
     font-size: 14px
+}
+
+.title:hover {
+    font-size: 20px;
 }
 
 @media (max-width: 950px) {

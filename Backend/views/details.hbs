@@ -8,7 +8,7 @@
                     <div class="letter"> <p>Update:</p> {{this.article.updatedAt}}</div>
                     <span style="font-size: 15px;">Tags: </span>
                     {{#each this.article.tags}}
-                        <span class="badge badge-pill" style="background-color: #f0f0f0; margin-right: 10px; font-size: 12px; font-weight: bold">
+                        <span class="badge badge-pill tags">
                             {{this.name}}
                         </span>
                     {{/each}}
@@ -39,13 +39,16 @@
 
             <div class="right">
                 <h3 class="heading-3">
-                    Top 5 Latest News
+                    Top 5 News about {{this.article.category.name}}
                 </h3>
                 <div class="lists">
                     {{#each newest5Articles as |article|}}
                     <div class="list">
                         <a href="/details?id={{article._id}}"><img src="{{article.image_url}}" alt="photo 1"></a>
-                        <p style="font-weight: bold"><a href="/details?id={{article._id}}">{{article.title}}</a></p>
+                        <div>
+                            <p class="title" style="font-weight: bold; margin-top: 5px;"><a href="/details?id={{article._id}}">{{article.title}}</a></p>
+                            Views: {{article.views}}  
+                        </div>
                     </div>
                     {{/each}}
                 </div>
