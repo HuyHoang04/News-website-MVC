@@ -9,21 +9,23 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
+                        <th>Description</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each allCategory}}
                     <tr>
-                        <td>1</td>
-                        <td>Technology</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.description}}</td>
                         <td>
                             <button>View</button>
                             <button>Edit</button>
                             <button>Delete</button>
                         </td>
                     </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </section>
@@ -33,21 +35,20 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each allTags}}
                     <tr>
-                        <td>1</td>
-                        <td>AI</td>
+                        <td>{{this.name}}</td>
                         <td>
-                            <button>View</button>
                             <button>Edit</button>
                             <button>Delete</button>
                         </td>
                     </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </section>
@@ -57,28 +58,24 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Title</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each getPendingArticles}}
                     <tr>
-                        <td>1</td>
-                        <td>Understanding AI</td>
-                        <td>
-                            <select>
-                                <option value="draft">Draft</option>
-                                <option value="published">Published</option>
-                            </select>
-                        </td>
+
+                        <td>{{this.title}}</td>
+                        <td>{{this.status}}</td>
                         <td>
                             <button>View</button>
                             <button>Edit</button>
                             <button>Delete</button>
                         </td>
                     </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </section>
@@ -88,22 +85,26 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Full Name</th>
                         <th>Role</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each getAllUsers}}
                     <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>Editor</td>
+                        <td>{{this.username}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.full_name}}</td>
+                        <td>{{this.role}}</td>
                         <td>
-                            <button>Assign Category</button>
-                            <button>Extend Subscription</button>
+                            <button>Edit</button>
+                            <button>Delete</button>
                         </td>
                     </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </section>
