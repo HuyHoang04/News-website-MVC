@@ -22,7 +22,7 @@ await connectDB();
 app.engine(
   "hbs",
   engine({
-    extname: "hbs",
+    extname: "hbs"
   })
 );
 // async function seedUsers() {
@@ -292,7 +292,7 @@ app.get("/", function rootHandler(req, res) {
     article3: articles[2],
     topViewedArticles: topViewedArticles,
     newestArticles: newestArticles,
-    latestArticlesFromCategories: latestArticlesFromCategories,
+    latestArticlesFromCategories: latestArticlesFromCategories
   });
 });
 
@@ -310,7 +310,7 @@ app.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // Không thể truy cập từ JavaScript
       secure: "production", // Chỉ gửi qua HTTPS trong production
-      maxAge: 3600000, // Cookie tồn tại 1 giờ
+      maxAge: 3600000 // Cookie tồn tại 1 giờ
     });
 
     if (role == "administrator") {
@@ -333,7 +333,24 @@ app.get("/details", async function rootHandler(req, res) {
   }
   res.render("details", {
     article: data,
-    newest5Articles: newest5Articles,
+    newest5Articles: newest5Articles
+  });
+});
+
+app.get("/category", async function rootHandler(req, res) {
+  const name = req.query.name || 0;
+  const category = await categoryController.getCategoryByName(name);
+  if (!category) {
+    return res.send("Không có chuyên mục này");
+  }
+  const articles = await Article.find({
+    category: category._id,
+    status: "published"
+  }).lean();
+  res.render("list", {
+    CategoryName: req.query.name,
+    des: category.description,
+    article: articles
   });
 });
 
@@ -363,7 +380,7 @@ app.get("/administrator", function (req, res) {
     allCategory: allCategories,
     allTags: allTags,
     getPendingArticles: getPendingArticles,
-    getAllUsers: getAllUsers,
+    getAllUsers: getAllUsers
   });
 });
 app.listen(3000, function () {

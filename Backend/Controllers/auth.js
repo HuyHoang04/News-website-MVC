@@ -5,15 +5,7 @@ import { User } from "../Models/user.js"; // Assuming the userSchema is in the '
 // Secret key for JWT
 const JWT_SECRET = "secret";
 // Register Route
-export async function register(
-  username,
-  password,
-  email,
-  full_name,
-  pen_name,
-  role,
-  subscription_expiration
-) {
+export async function register(username, email, phone, loginName, password) {
   try {
     // Check if the user already exists
     const userExists = await User.findOne({ username });
@@ -21,18 +13,15 @@ export async function register(
       return res.status(400).json({ message: "Username already taken" });
     }
 
-    // Hash the password before saving
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
     const newUser = new User({
       username,
-      password: hashedPassword,
       email,
-      full_name,
-      pen_name,
-      role,
-      subscription_expiration,
+      phone,
+      loginName,
+      password
     });
 
     // Save the new user

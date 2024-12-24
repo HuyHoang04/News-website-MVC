@@ -31,7 +31,19 @@ export const categoryController = {
   },
   getCategoryById: async (id) => {
     try {
-      const category = await Category.findById(id);
+      const category = await Category.findById(id).lean();
+      if (!category) {
+        return res.status(404).json({ message: "Category not found" });
+      }
+      return category;
+    } catch (err) {
+      console.error(err);
+      return { message: "Server error" };
+    }
+  },
+  getCategoryByName: async (name) => {
+    try {
+      const category = await Category.findOne({ name }).lean();
       if (!category) {
         return res.status(404).json({ message: "Category not found" });
       }
@@ -73,5 +85,5 @@ export const categoryController = {
       console.error(err);
       return { message: "Server error" };
     }
-  },
+  }
 };
