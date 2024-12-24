@@ -331,9 +331,19 @@ app.get("/details", async function rootHandler(req, res) {
   if (!data) {
     return res.send("No data");
   }
+  //Get 5 news same category
+  const name = data.category.name || 0;
+  const category = await categoryController.getCategoryByName(name);
+  const articles = await Article.find({
+    category: category._id,
+    status: "published"
+  })
+    .limit(5)
+    .lean();
+
   res.render("details", {
     article: data,
-    newest5Articles: newest5Articles
+    newest5Articles: articles
   });
 });
 
@@ -343,6 +353,7 @@ app.get("/category", async function rootHandler(req, res) {
   if (!category) {
     return res.send("Không có chuyên mục này");
   }
+
   const articles = await Article.find({
     category: category._id,
     status: "published"
@@ -350,7 +361,8 @@ app.get("/category", async function rootHandler(req, res) {
   res.render("list", {
     CategoryName: req.query.name,
     des: category.description,
-    article: articles
+    article: articles,
+    newest5Articles: newest5Articles //Addition
   });
 });
 

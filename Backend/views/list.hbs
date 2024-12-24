@@ -7,24 +7,107 @@
     margin: 10px 0 20px 30px;
     font-size: large;
 }
-.article{    
-    height: 60%;
-    width: 60%;
-    margin: 50px;
+
+.article:hover {
+    background-color: #E0E0E0;
+    border-radius: 20px;
 }
+
+h4 {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.article img {
+    width: 350px;
+    height: auto;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+
+.article a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.article a:hover {
+    text-decoration: underline;
+    color: red;
+}
+
+hr {
+    background-color: 20px #555;
+    width: 90%; /* Độ rộng theo ý muốn (mặc định 100%) */
+    height: 10px;
+}
+
+h4 {
+    margin-top: 8px;
+    font-weight: bold;
+    font-size: 30px;
+}
+.big{
+    display: flex;
+    justify-content: space-around;
+}
+.right{
+    margin-top: 30px;
+    margin-right: 150px;
+    border-left: 2px solid #f0f0f0;
+    height: 1200px;
+}
+.left{
+    width: 100%;
+    height: auto;
+
+}
+.article{    
+    height: auto;
+    width: 90%;
+    margin-left: 50px;
+    display: flex;
+}
+
 </style>
 
-<button type="button" class="btn btn-info category">Category: {{CategoryName}}</button>
-<div class="des">Description: {{des}} </div>
-{{#each article }}
-    <article class="main-container article">
-        <h4>Views: {{this.views}}</h4>
-        <div>
-            <h2>{{this.title}}</h2>
-            <p></p>
-            <a href="/details?id={{this._id}}">Read More</a>
+<div class="big">
+    <div class="left">
+        <button type="button" class="btn btn-info category">Category: {{CategoryName}}</button>
+        <div class="des">Description: {{des}} </div>
+        {{#each article }}
+            <div class="article">
+                <a href="/details?id={{this._id}}"><img src="{{this.image_url.[0]}}" alt="News"></a>
+                <div>
+                    <h4>{{this.title}}</h4>
+                    <p>Views: {{this.views}}</p>
+                    <a href="/details?id={{this._id}}">Read More</a>
+                </div>
+            </div>
+            <hr>
+        {{/each}}
+    </div>
+{{!-- Right --}}
+    <div class="right">
+        <div style="padding-left: 30px;">
+        <h3 class="heading-3">
+            Top 5 Newest News 
+        </h3>
+        <div class="lists">
+            {{#each newest5Articles as |article|}}
+            <div class="list">
+                <a href="/details?id={{article._id}}"><img src="{{article.image_url}}" alt="photo 1"></a>
+                <p style="font-weight: bold"><a href="/details?id={{article._id}}">{{article.title}}</a></p>
+            </div>
+            {{/each}}
         </div>
-        <a href="/details?id={{this._id}}"><img src="{{this.image_url.[0]}}" alt="Right News"></a>
-        <hr>
-    </article>
-{{/each}}
+        </div>
+    </div>
+</div>

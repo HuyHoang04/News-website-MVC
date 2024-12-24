@@ -19,7 +19,7 @@ export const articleController = {
 
     const articles = await Article.find({
       status: "published",
-      createdAt: { $gte: lastWeekDate },
+      createdAt: { $gte: lastWeekDate }
     })
       .sort({ views: -1 }) // Sort by views descending
       .limit(4) // Get top 4 articles
@@ -55,7 +55,7 @@ export const articleController = {
   getTop5NewestArticles: async () => {
     const articles = await Article.find({ status: "published" })
       .sort({ createdAt: -1 }) // Sort by creation date descending
-      .limit(5) // Get top 10 articles
+      .limit(5) // Get top 5 articles
       .populate("category")
       .populate("tags")
       .populate("author")
@@ -71,7 +71,7 @@ export const articleController = {
     for (const category of categories) {
       const article = await Article.findOne({
         category: category._id,
-        status: "published",
+        status: "published"
       })
         .sort({ createdAt: -1 }) // Sort by creation date descending
         .populate("category")
@@ -107,5 +107,5 @@ export const articleController = {
     } catch (err) {
       console.error(err);
     }
-  },
+  }
 };
