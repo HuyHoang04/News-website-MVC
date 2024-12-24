@@ -7,17 +7,17 @@ export const categoryController = {
       // Check if category with the same name exists
       const existingCategory = await Category.findOne({ name });
       if (existingCategory) {
-        return res.status(400).json({ message: "Category already exists" });
+        throw new Error("Category already exists");
       }
 
       // Create and save the new category
       const newCategory = new Category({ name, description });
       await newCategory.save();
 
-      return newCategory;
+      return newCategory; // Return the created category
     } catch (err) {
       console.error(err);
-      return { message: "Server error" };
+      throw err; // Propagate the error for the caller to handle
     }
   },
   getAllCategories: async function () {
@@ -85,5 +85,5 @@ export const categoryController = {
       console.error(err);
       return { message: "Server error" };
     }
-  }
+  },
 };
