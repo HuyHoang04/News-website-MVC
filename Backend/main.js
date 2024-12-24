@@ -385,7 +385,17 @@ app.get("/category", async function rootHandler(req, res) {
     article: articles,
   });
 });
-
+app.post("/user", async (req, res) => {
+  const userData = {
+    username: req.body.username,
+    password: req.body.userPass,
+    email: req.body.userEmail,
+    full_name: req.body.userFullName,
+    role: req.body.userRole,
+  };
+  const user = await userController.createUser(userData);
+  res.redirect("/administrator");
+});
 app.get("/login", function rootHandler(req, res) {
   res.render("login");
 });

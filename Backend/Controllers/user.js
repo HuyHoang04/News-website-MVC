@@ -1,10 +1,19 @@
 import { User } from "../Models/user.js";
-
+import bcrypt from "bcryptjs";
 export const userController = {
   // CREATE a new user
   createUser: async (userData) => {
     try {
-      const user = new User(userData);
+      // Encrypt the password
+      const hashedPassword = await bcrypt.hash(userData.password, 10); // 10 is the saltRounds
+
+      // Create a new user object with the hashed password
+      const user = new User({
+        ...userData,
+        password: hashedPassword, // Replace the plain password with the hashed one
+      });
+
+      // Save the user to the database
       return await user.save();
     } catch (error) {
       throw new Error(error.message);

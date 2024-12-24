@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ["guest", "subscriber", "writer", "editor", "administrator"],
-    required: true
+    required: true,
   },
   subscription_expiration: {
     type: Date,
@@ -16,8 +16,9 @@ const userSchema = new mongoose.Schema({
       const date = new Date();
       date.setFullYear(date.getFullYear() + 1); // Cộng thêm 1 năm
       return date;
-    }
-  }
+    },
+  },
+  avaiCategory: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
 });
 
 export const User = mongoose.model("User", userSchema);
