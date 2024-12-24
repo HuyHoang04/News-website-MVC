@@ -1,0 +1,31 @@
+<div class="subscription-page">
+    <div class="subscription-container">
+        <h2>Subscribe to a Plan</h2>
+        <form id="subscription-form" action="/submit-subscription" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter username" value="{{username}}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter email" value="{{email}}" required>
+            </div>
+            <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full-name" placeholder="Enter full name" value="{{fullName}}" required>
+            </div>
+            <div class="form-group">
+                <label for="subscription-plan">Subscription Plan</label>
+                <select id="subscription-plan" name="subscription-plan" required>
+                    <option value="basic" {{#ifEquals subscriptionPlan 'basic'}}selected{{/ifEquals}}>Basic - Free</option>
+                    <option value="standard" {{#ifEquals subscriptionPlan 'standard'}}selected{{/ifEquals}}>Standard - $5/month</option>
+                    <option value="premium" {{#ifEquals subscriptionPlan 'premium'}}selected{{/ifEquals}}>Premium - $15/month</option>
+                </select>
+            </div>
+            <div class="btn-container">
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='/cancel'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
