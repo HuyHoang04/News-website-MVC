@@ -412,6 +412,10 @@ app.get("/editor", function rootHandler(req, res) {
   res.render("editor");
 });
 
+app.get("/about", function rootHandler(req, res) {
+  res.render("about")
+});
+
 app.get("/administrator", async function (req, res) {
   const allCategories = await categoryController.getAllCategories();
   const allTags = await tagController.getAllTags();
