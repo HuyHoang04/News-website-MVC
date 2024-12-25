@@ -3,9 +3,9 @@
         <div class="sub-heading">
             <div>
                 <div>
-                    <div class="letter"> <p>Create:</p> {{this.article.createdAt}}</div>
-                    <div class="letter"> <p>Update:</p> {{this.article.updatedAt}}</div>
-                    <span style="font-size: 15px;">Tags: </span>
+                    <div class="letter"> <p>Create: {{this.article.createdAt}}</p></div>
+                    <div class="letter"> <p>Update: {{this.article.updatedAt}}</p></div>
+                    <span>Tags: </span>
                     {{#each this.article.tags}}
                         <span class="badge badge-pill tags">
                             {{this.name}}

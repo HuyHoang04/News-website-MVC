@@ -6,6 +6,7 @@
     background-color: #f4f4f4;
 }
 
+/* Container for article management content */
 .article-management-editor .container {
     width: 80%;
     margin: 0 auto;
@@ -14,9 +15,11 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Title for the article management editor page */
 .article-management-editor h1 {
     text-align: center;
     color: #333;
+    font-size: 23px; /* Increased to 23px */
 }
 
 /* Article list section */
@@ -25,7 +28,7 @@
 }
 
 .article-management-editor .article-list h2 {
-    font-size: 24px;
+    font-size: 23px; /* Increased to 23px */
     color: #444;
 }
 
@@ -45,6 +48,7 @@
 .article-management-editor .article-list td {
     padding: 10px;
     text-align: left;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .article-management-editor .article-list button {
@@ -54,6 +58,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .article-management-editor .article-list button:hover {
@@ -86,7 +91,7 @@
 .article-management-editor .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 23px; /* Increased to 23px */
     font-weight: bold;
     cursor: pointer;
 }

@@ -26,7 +26,10 @@
                     {{#each newest5Articles as |article|}}
                     <div class="list" style="margin-bottom: 50px;">
                         <a href="/details?id={{article._id}}"><img src="{{article.image_url}}" alt="photo 1"></a>
-                        <p style="font-weight: bold"><a href="/details?id={{article._id}}">{{article.title}}</a></p>
+                        <h4>{{this.title}}</h4>
+                        <p class="text-body-secondary">{{this.updatedAt}}</p>
+                        <p>Views: {{this.views}}</p>
+                        <a href="/details?id={{this._id}}">Read More</a>
                     </div>
                     {{/each}}
                 </div>

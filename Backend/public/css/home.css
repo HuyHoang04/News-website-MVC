@@ -3,6 +3,14 @@ body {
     background: #fff;
 }
 
+a {
+    font-size: 25px; /* Set font size for all <a> tags */
+}
+
+a, p, li, h1, h2, h3, h4, h5, h6, span {
+    font-size: 23px; /* Increased font size for text elements */
+}
+
 .custom-container img {
     width: 100%;
 }
@@ -23,6 +31,7 @@ body {
 
 .carousel-title {
     padding: 15px 0 15px 30px;
+    font-size: 35px;
 }
 
 .btnSearch:hover {
@@ -166,6 +175,7 @@ a:hover img {
     padding: 15px 0;
     display: block;
     transition: all 0.5s;
+    font-size: 23px; /* Increased font size */
 }
 
 .custom-container span {
@@ -175,6 +185,7 @@ a:hover img {
     padding-left: 10px;
     margin-left: 10px;
     transition: padding-left 0.5s;
+    font-size: 23px; /* Increased font size */
 }
 
 .custom-container a:hover span {
@@ -192,16 +203,17 @@ a:hover img {
 
 .main-container-left>h2 {
     padding: 15px 0 15px 30px;
+    font-size: 23px; /* Increased font size */
 }
 
 .main-container-left h3 {
     padding: 10px 0;
-    font-size: 18px;
+    font-size: 23px; /* Increased font size */
     font-family: var(--heading);
 }
 
 .main-container-left p {
-    font-size: 15px;
+    font-size: 23px; /* Increased font size */
     font-weight: 300;
 }
 
@@ -224,6 +236,7 @@ a:hover img {
 
 .main-container-right>h2 {
     padding: 15px 0 15px 30px;
+    font-size: 23px; /* Increased font size */
 }
 
 .main-container-right article {
@@ -247,24 +260,25 @@ a:hover img {
     text-align: center;
     text-transform: uppercase;
     font-weight: 300;
-    font-size: 12px;
+    font-size: 23px; /* Increased font size */
     align-self: center;
 }
 
 .main-container-right article h2 {
-    font-size: 18px;
+    font-size: 23px; /* Increased font size */
     padding: 10px 0;
     font-family: var(--heading);
 }
 
 .main-container-right article p {
-    font-size: 15px;
+    font-size: 23px; /* Increased font size */
     font-weight: 300;
 }
 
 .main-container-right article div {
     margin-right: 10px;
 }
+
 
 /* Media Queries */
 @media (max-width: 460px) {

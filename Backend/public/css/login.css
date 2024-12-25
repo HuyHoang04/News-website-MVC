@@ -22,6 +22,7 @@
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .login-body .form-group {
@@ -32,7 +33,7 @@
     display: block;
     margin-bottom: 5px;
     color: #555;
-    font-size: 14px;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .login-body .form-group input {
@@ -40,7 +41,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .login-body .btn-container {
@@ -55,7 +56,7 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 23px; /* Increased to 23px */
     transition: background-color 0.3s ease;
 }
 
@@ -73,7 +74,7 @@
     color: #fff;
 }
 
-.login-body .btn-premium{
+.login-body .btn-premium {
     background-color: #004d40;
 }
 
@@ -81,7 +82,7 @@
     background-color: #546e7a;
     color: #fff;
     padding: 10px 20px;
-    font-size: 14px;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .login-body .btn-secondary:hover {
@@ -94,12 +95,13 @@
     align-items: center;
     margin-top: 20px;
     gap: 10px;
-    font-size: 14px;
+    font-size: 23px; /* Increased to 23px */
     color: #555;
 }
 
 .login-body .register-note button {
     padding: 8px 16px;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .login-body .social-login-section {
@@ -108,7 +110,7 @@
 }
 
 .login-body .social-login-section p {
-    font-size: 14px;
+    font-size: 23px; /* Increased to 23px */
     color: #555;
     margin-bottom: 10px;
 }
@@ -119,7 +121,7 @@
     margin-top: 10px;
     border: none;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 23px; /* Increased to 23px */
     cursor: pointer;
     color: #fff;
 }

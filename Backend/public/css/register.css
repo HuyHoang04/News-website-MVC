@@ -23,6 +23,7 @@
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    font-size: 23px; /* Increased to 23px */
 }
 
 /* Input groups */
@@ -34,7 +35,7 @@
     display: block;
     margin-bottom: 5px;
     color: #555;
-    font-size: 14px;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .register-page .register-container .form-group input {
@@ -42,7 +43,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 23px; /* Increased to 23px */
 }
 
 /* Button container */
@@ -58,7 +59,7 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 23px; /* Increased to 23px */
     transition: background-color 0.3s ease;
 }
 
