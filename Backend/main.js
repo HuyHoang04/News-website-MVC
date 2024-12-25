@@ -325,6 +325,24 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//Hàm để xử lý link youtube
+function convertToEmbedUrls(urls) {
+  if (urls.length === 0) return [];
+
+  for (let y = 0; y < urls.length; y++) {
+    let videoId = "";
+    for (let i = urls[y].length - 1; i >= 0; i--) {
+      if (urls[y][i] === "=") {
+        videoId = urls[y].slice(i + 1); // Lấy phần sau dấu '='
+        break;
+      }
+    }
+    urls[y] = "//www.youtube.com/embed/" + videoId;
+  }
+
+  return urls;
+}
+
 app.get("/details", async function rootHandler(req, res) {
   const id = req.query.id || 0;
   const data = await articleController.getArticleById(id);
@@ -341,11 +359,15 @@ app.get("/details", async function rootHandler(req, res) {
     .limit(5)
     .lean();
 
+  const embedUrls = convertToEmbedUrls(data.video_url);
+
   res.render("details", {
     article: data,
-    newest5Articles: articles
+    newest5Articles: articles,
+    video_url: embedUrls
   });
 });
+
 app.post("/category", function (req, res) {
   const { catagoryName, catagoryDes } = req.body;
   const newcatagory = categoryController.createCategory(
