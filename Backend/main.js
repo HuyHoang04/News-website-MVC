@@ -325,6 +325,24 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//Hàm để xử lý link youtube
+function convertToEmbedUrls(urls) {
+  if (urls.length === 0) return [];
+
+  for (let y = 0; y < urls.length; y++) {
+    let videoId = "";
+    for (let i = urls[y].length - 1; i >= 0; i--) {
+      if (urls[y][i] === "=") {
+        videoId = urls[y].slice(i + 1); // Lấy phần sau dấu '='
+        break;
+      }
+    }
+    urls[y] = "//www.youtube.com/embed/" + videoId;
+  }
+
+  return urls;
+}
+
 app.get("/details", async function rootHandler(req, res) {
   const id = req.query.id || 0;
   const data = await articleController.getArticleById(id);
@@ -341,11 +359,15 @@ app.get("/details", async function rootHandler(req, res) {
     .limit(5)
     .lean();
 
+  const embedUrls = convertToEmbedUrls(data.video_url);
+
   res.render("details", {
     article: data,
     newest5Articles: articles,
+    video_url: embedUrls,
   });
 });
+
 app.post("/category", function (req, res) {
   const { catagoryName, catagoryDes } = req.body;
   const newcatagory = categoryController.createCategory(
@@ -368,6 +390,7 @@ app.post("/tag/delete/:id", async function (req, res) {
   tagController.deleteTag(id);
   res.redirect("/administrator");
 });
+
 app.get("/category", async function rootHandler(req, res) {
   const name = req.query.name || 0;
   const category = await categoryController.getCategoryByName(name);
@@ -386,6 +409,7 @@ app.get("/category", async function rootHandler(req, res) {
     newest5Articles: newest5Articles, //Cho right-container
   });
 });
+
 app.post("/user", async (req, res) => {
   const userData = {
     username: req.body.username,
@@ -397,6 +421,7 @@ app.post("/user", async (req, res) => {
   const user = await userController.createUser(userData);
   res.redirect("/administrator");
 });
+
 app.get("/login", function rootHandler(req, res) {
   res.render("login");
 });
@@ -477,6 +502,63 @@ app.get("/administrator", async function (req, res) {
     getEditorsOnly: getEditorsOnly,
     getAllCategories: getAllCategories,
   });
+});
+
+app.get("/search", async (req, res) => {
+  const query = req.query.q || ""; // Get the search query
+
+  if (!query.trim()) {
+    return res.render("list", {
+      CategoryName: "Search Results",
+      des: "No results found. Please try another query.",
+      article: [],
+      newest5Articles: await articleController.getTop5NewestArticles(),
+    });
+  }
+
+  try {
+    // Find articles that match the query in title, abstract, or content
+    const articles = await Article.find({
+      $and: [
+        { status: "published" },
+        {
+          $or: [
+            { title: { $regex: query, $options: "i" } },
+            { content: { $regex: query, $options: "i" } },
+          ],
+        },
+      ],
+    })
+      .populate("category")
+      .populate("tags")
+      .lean();
+
+    res.render("list", {
+      CategoryName: "Search Results",
+      des: `Showing results for: "${query}"`,
+      article: articles,
+      newest5Articles: await articleController.getTop5NewestArticles(),
+    });
+  } catch (err) {
+    console.error("Search Error:", err);
+    res.status(500).send("Error during search");
+  }
+});
+
+app.get("/latest", async (req, res) => {
+  try {
+    const articles = await articleController.getTop10NewestArticles();
+    const newest5Articles = await articleController.getTop5NewestArticles(); // Right-side container data
+    res.render("list", {
+      CategoryName: "Latest News",
+      des: "Browse the latest articles published.",
+      article: articles,
+      newest5Articles: newest5Articles,
+    });
+  } catch (error) {
+    console.error("Error loading latest articles:", error);
+    res.status(500).send("Error loading latest articles");
+  }
 });
 
 app.listen(3000, function () {

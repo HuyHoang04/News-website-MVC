@@ -1,12 +1,11 @@
-<!--news details-->
 <div class="container">
     <header>
         <div class="sub-heading">
             <div>
                 <div>
-                    <div class="letter"> <p>Create:</p> {{this.article.createdAt}}</div>
-                    <div class="letter"> <p>Update:</p> {{this.article.updatedAt}}</div>
-                    <span style="font-size: 15px;">Tags: </span>
+                    <div class="letter"> <p>Create: {{this.article.createdAt}}</p></div>
+                    <div class="letter"> <p>Update: {{this.article.updatedAt}}</p></div>
+                    <span>Tags: </span>
                     {{#each this.article.tags}}
                         <span class="badge badge-pill tags">
                             {{this.name}}
@@ -58,8 +57,17 @@
         </div>
 
         <div style="margin-bottom: 50px;">
+            <h4>Image</h4>
+            {{#each this.article.image_url}}
+                <div class="video-container">
+                    <img src="{{this}}" alt="image">
+                </div>
+            {{/each}}
+        </div>
+
+        <div style="margin-bottom: 50px;">
             <h4>Video</h4>
-            {{#each this.article.video_url}}
+            {{#each video_url}}
                 <div class="video-container">
                     <iframe width="560" height="315" src="{{this}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
@@ -123,3 +131,4 @@
         <p><strong>Comment:</strong> Great News!</p>
     </div>
 </div>
+

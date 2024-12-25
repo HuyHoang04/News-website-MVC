@@ -140,4 +140,23 @@ export const articleController = {
       console.error(err);
     }
   },
+  //search bar
+  searchArticles: async (query) => {
+    try {
+      const searchRegex = new RegExp(query, "i"); // Case-insensitive regex
+      const articles = await Article.find({
+        status: "published", // Ensure only published articles are returned
+        $or: [{ title: searchRegex }, { content: searchRegex }],
+      })
+        .populate("category")
+        .populate("tags")
+        .populate("author")
+        .lean();
+
+      return articles;
+    } catch (error) {
+      console.error("Error searching articles:", error);
+      return [];
+    }
+  },
 };
