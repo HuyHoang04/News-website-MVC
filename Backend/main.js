@@ -532,7 +532,8 @@ app.post(
         tags: req.body.tags || [], // Chuyển chuỗi tags thành mảng ID
         createdAt: new Date(),
         updatedAt: new Date(),
-        views: 0 // Mặc định là 0
+        views: 0, // Mặc định là 0
+        premium: req.body.premium
       });
       // Lưu bài viết
       await newArticle.save();
