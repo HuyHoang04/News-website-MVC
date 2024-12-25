@@ -80,7 +80,7 @@ export const articleController = {
       // Lấy các bài viết ở trạng thái pending thuộc avaiCategory của user
       const articles = await Article.find({
         status: "pending",
-        category: { $in: user.avaiCategory },
+        category: { $in: user.avaiCategory }
       })
         .populate("category")
         .populate("tags")
@@ -109,7 +109,7 @@ export const articleController = {
 
     const articles = await Article.find({
       status: "published",
-      createdAt: { $gte: lastWeekDate },
+      createdAt: { $gte: lastWeekDate }
     })
       .sort({ views: -1 }) // Sort by views descending
       .limit(4) // Get top 4 articles
@@ -161,7 +161,7 @@ export const articleController = {
     for (const category of categories) {
       const article = await Article.findOne({
         category: category._id,
-        status: "published",
+        status: "published"
       })
         .sort({ createdAt: -1 }) // Sort by creation date descending
         .populate("category")
@@ -204,7 +204,7 @@ export const articleController = {
       const searchRegex = new RegExp(query, "i"); // Case-insensitive regex
       const articles = await Article.find({
         status: "published", // Ensure only published articles are returned
-        $or: [{ title: searchRegex }, { content: searchRegex }],
+        $or: [{ title: searchRegex }, { content: searchRegex }]
       })
         .populate("category")
         .populate("tags")
@@ -217,4 +217,26 @@ export const articleController = {
       return [];
     }
   },
+  getArticleByUser: async (id) => {
+    if (!id) {
+      console.error("ID is not valid!");
+      return null;
+    }
+    //const objectId = new mongoose.Types.ObjectId(id);
+    try {
+      const article = await Article.find({ author: id })
+        .populate("author", "username")
+        .populate("category", "name") // Optionally populate category details
+        .populate("tags", "name") // Optionally populate tag details
+        .lean();
+
+      if (!article) {
+        console.error("Không có article", error);
+        return null;
+      }
+      return article;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 };
