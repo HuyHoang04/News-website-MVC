@@ -1,20 +1,15 @@
 .articles-list .category {
     margin: 30px 0 0 30px;
-    font-size: larger;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .articles-list .des {
     margin: 10px 0 20px 30px;
-    font-size: large;
-}
-
-.articles-list .article:hover {
-    background-color: #E0E0E0;
-    border-radius: 20px;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .articles-list h4 {
-    font-size: 16px;
+    font-size: 23px; /* Increased to 23px */
     color: #333;
     margin: 0;
 }
@@ -22,6 +17,7 @@
 .articles-list p {
     margin: 5px 0;
     color: #555;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .articles-list .article img {
@@ -35,6 +31,7 @@
     text-decoration: none;
     color: #007bff;
     font-weight: bold;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .articles-list .article a:hover {
@@ -51,7 +48,7 @@
 .articles-list h4 {
     margin-top: 8px;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 23px; /* Increased to 23px */
 }
 
 .articles-list .big {
@@ -81,4 +78,3 @@
 .articles-list .right .list a {
     text-decoration: none; /* Removes the underline */
 }
-

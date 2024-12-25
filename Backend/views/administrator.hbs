@@ -4,6 +4,7 @@
     <header>
         <h1>Administrator Dashboard</h1>
     </header>
+
     <main>
         <section id="category">
             <h2>Manage Categories</h2>
@@ -76,6 +77,32 @@
                             <button>View</button>
                             <button>Edit</button>
                             <button>Delete</button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+        <section id="editor">
+            <h2>Manage editor</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each getEditorsOnly}}
+                    <tr>
+                        <input type="hidden" value="{{this._id}}" id="editorId{{@index}}">
+                        <td>{{this.username}}</td>
+                        <td>{{#each avaiCategory}}
+                        {{this.name}}
+                        {{/each}}</td>
+                        <td>
+                          <button onClick="copyValue('editorId{{@index}}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editorModal" data-bs-whatever="@fat" onclick="">Add Category</button>
                         </td>
                     </tr>
                     {{/each}}
@@ -204,7 +231,45 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Add</button>
       </div>
-        </form> <!-- Form is properly closed here -->
+        </form> 
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="editorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add editor catagory</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/administrator/editor/addcategory" method="POST">
+          <div class="mb-3">
+            <input type="hidden" id="userid" name="userid">
+            <label for="message-text" class="col-form-label">Category</label>
+            <select class="form-select" name="catagoryid" required>
+              {{#each getAllCategories}}
+              <option value="{{this._id}}">{{this.name}}</option>
+              {{/each}}
+
+            </select>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+        </form> 
+    </div>
+  </div>
+</div>
+    <script>
+        function copyValue(idInput) {
+            // Lấy giá trị từ Input 1
+            const input1Value = document.getElementById(`${idInput}`).value;
+
+            // Gán giá trị cho Input 2
+            document.getElementById("userid").value = input1Value;
+        }
+    </script>

@@ -1,9 +1,41 @@
 import { Article } from "../Models/article.js"; // Adjust according to your models path
 import { Category } from "../Models/category.js";
+import { User } from "../Models/user.js";
 import { Tag } from "../Models/tag.js";
 import mongoose from "mongoose";
 
 export const articleController = {
+  getPendingArticlesByUser: async (userId) => {
+    if (!userId) {
+      console.error("User ID is required");
+      return [];
+    }
+
+    try {
+      // Tìm thông tin người dùng bao gồm avaiCategory
+      const user = await User.findById(userId).select("avaiCategory").lean();
+      if (!user || !user.avaiCategory || user.avaiCategory.length === 0) {
+        console.warn("User not found or avaiCategory is empty");
+        return [];
+      }
+
+      // Lấy các bài viết ở trạng thái pending thuộc avaiCategory của user
+      const articles = await Article.find({
+        status: "pending",
+        category: { $in: user.avaiCategory },
+      })
+        .populate("category")
+        .populate("tags")
+        .populate("author")
+        .lean();
+
+      return articles;
+    } catch (error) {
+      console.error("Error fetching pending articles for user:", error);
+      return [];
+    }
+  },
+
   getPendingArticles: async () => {
     const articles = await Article.find({ status: "pending" })
       .populate("category")
@@ -19,7 +51,7 @@ export const articleController = {
 
     const articles = await Article.find({
       status: "published",
-      createdAt: { $gte: lastWeekDate }
+      createdAt: { $gte: lastWeekDate },
     })
       .sort({ views: -1 }) // Sort by views descending
       .limit(4) // Get top 4 articles
@@ -71,7 +103,7 @@ export const articleController = {
     for (const category of categories) {
       const article = await Article.findOne({
         category: category._id,
-        status: "published"
+        status: "published",
       })
         .sort({ createdAt: -1 }) // Sort by creation date descending
         .populate("category")
