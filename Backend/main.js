@@ -26,9 +26,19 @@ await connectDB();
 app.engine(
   "hbs",
   engine({
-    extname: "hbs",
+    extname: "hbs"
   })
 );
+
+// app.use(async function (req, res, next) {
+//   if (req.session.true === undefined) {
+//     req.session.auth = false;
+//   }
+//   res.locals.auth = req.session.auth;
+//   res.locals.username = req.username;
+//   next();
+// });
+
 // async function seedUsers() {
 //   try {
 //     const users = [
@@ -296,7 +306,7 @@ app.get("/", async function rootHandler(req, res) {
     article3: articles[2],
     topViewedArticles: topViewedArticles,
     newestArticles: newestArticles,
-    latestArticlesFromCategories: latestArticlesFromCategories,
+    latestArticlesFromCategories: latestArticlesFromCategories
   });
 });
 
@@ -315,7 +325,7 @@ app.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // For security, ensures JavaScript cannot access the cookie
       secure: process.env.NODE_ENV === "production", // Ensure cookie is secure in production
-      maxAge: 3600000, // 1 hour
+      maxAge: 3600000 // 1 hour
     });
 
     if (role === "administrator") {
@@ -362,7 +372,7 @@ app.get("/details", async function rootHandler(req, res) {
   const category = await categoryController.getCategoryByName(name);
   const articles = await Article.find({
     category: category._id,
-    status: "published",
+    status: "published"
   })
     .limit(5)
     .lean();
@@ -372,7 +382,7 @@ app.get("/details", async function rootHandler(req, res) {
   res.render("details", {
     article: data,
     newest5Articles: articles,
-    video_url: embedUrls,
+    video_url: embedUrls
   });
 });
 
@@ -408,13 +418,13 @@ app.get("/category", async function rootHandler(req, res) {
 
   const articles = await Article.find({
     category: category._id,
-    status: "published",
+    status: "published"
   }).lean();
   res.render("list", {
     CategoryName: req.query.name,
     des: category.description,
     article: articles,
-    newest5Articles: newest5Articles, //Cho right-container
+    newest5Articles: newest5Articles //Cho right-container
   });
 });
 
@@ -424,7 +434,7 @@ app.post("/user", async (req, res) => {
     password: req.body.userPass,
     email: req.body.userEmail,
     full_name: req.body.userFullName,
-    role: req.body.userRole,
+    role: req.body.userRole
   };
   const user = await userController.createUser(userData);
   res.redirect("/administrator");
@@ -435,7 +445,7 @@ app.post("/register", async function rootHandler(req, res) {
       username: req.body.username,
       password: req.body.password,
       email: req.body.email,
-      full_name: req.body.full_name,
+      full_name: req.body.full_name
     });
     if (!(newUser.password === req.body.confirm_password)) {
       res.send("Confirm password different from password");
@@ -480,30 +490,28 @@ app.post("/administrator/editor/addcategory", async (req, res) => {
 });
 
 //////////// For writer
-app.get("/writer/articles", async function rootHandler(req, res) {
-  const id = req.query.id || 0;
-  const data = await articleController.getArticleByUser(id);
-  if (!data) {
-    return res.send("No data");
-  }
-  const articles = await Article.find({
-    category: category._id,
-    status: "published",
-  })
-    .limit(5)
-    .lean(); //addition
+app.get(
+  "/writer/articles",
+  middleware.verifyRole(["writer"]),
+  async function rootHandler(req, res) {
+    const id = req.userId || 0;
+    const data = await articleController.getArticleByUser(id);
+    if (!data) {
+      return res.send("No data");
+    }
 
-  res.render("articleOfWriter", {
-    article: data,
-    newest5Articles: articles,
-  });
-});
+    res.render("articleOfWriter", {
+      article: data,
+      usernamee: req.username
+    });
+  }
+);
 
 app.get("/writer", async function rootHandler(req, res) {
   const category = await categoryController.getAllCategories();
   res.render("writer", {
     category: category,
-    tag: await tagController.getAllTags(),
+    tag: await tagController.getAllTags()
   });
 });
 
@@ -524,7 +532,7 @@ app.post(
         tags: req.body.tags || [], // Chuyển chuỗi tags thành mảng ID
         createdAt: new Date(),
         updatedAt: new Date(),
-        views: 0, // Mặc định là 0
+        views: 0 // Mặc định là 0
       });
       // Lưu bài viết
       await newArticle.save();
@@ -557,7 +565,7 @@ app.get(
       await articleController.getPendingArticlesByUser(req.userId);
     console.log("User's username:", req.userId);
     res.render("editor", {
-      getPendingArticlesByUser: getPendingArticlesByUser,
+      getPendingArticlesByUser: getPendingArticlesByUser
     });
   }
 );
@@ -585,7 +593,7 @@ app.get("/administrator", async function (req, res) {
     getPendingArticles: getPendingArticles,
     getAllUsers: getAllUsers,
     getEditorsOnly: getEditorsOnly,
-    getAllCategories: getAllCategories,
+    getAllCategories: getAllCategories
   });
 });
 
@@ -597,7 +605,7 @@ app.get("/search", async (req, res) => {
       CategoryName: "Search Results",
       des: "No results found. Please try another query.",
       article: [],
-      newest5Articles: await articleController.getTop5NewestArticles(),
+      newest5Articles: await articleController.getTop5NewestArticles()
     });
   }
 
@@ -609,10 +617,10 @@ app.get("/search", async (req, res) => {
         {
           $or: [
             { title: { $regex: query, $options: "i" } },
-            { content: { $regex: query, $options: "i" } },
-          ],
-        },
-      ],
+            { content: { $regex: query, $options: "i" } }
+          ]
+        }
+      ]
     })
       .populate("category")
       .populate("tags")
@@ -622,7 +630,7 @@ app.get("/search", async (req, res) => {
       CategoryName: "Search Results",
       des: `Showing results for: "${query}"`,
       article: articles,
-      newest5Articles: await articleController.getTop5NewestArticles(),
+      newest5Articles: await articleController.getTop5NewestArticles()
     });
   } catch (err) {
     console.error("Search Error:", err);
@@ -638,7 +646,7 @@ app.get("/latest", async (req, res) => {
       CategoryName: "Latest News",
       des: "Browse the latest articles published.",
       article: articles,
-      newest5Articles: newest5Articles,
+      newest5Articles: newest5Articles
     });
   } catch (error) {
     console.error("Error loading latest articles:", error);
