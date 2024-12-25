@@ -21,83 +21,83 @@
         </div>
     </header>
 
-    <button type="button" class="btn btn-info">Category: {{this.article.category.name}}</button>
-    
-    <div class="main">
-        <div class="home">
-            <div class="left">
-                <blockquote>
-                    <h1>{{this.article.title}}</h1>
-                    <article>
-                        {{{this.article.content}}}
-                    </article>
-                </blockquote>
-                {{!-- {{#each article.image_url}}
-                    <img src="{{this}}" alt="Paper Photos" />
-                {{/each}} --}}
-            </div>
+<button type="button" class="btn btn-info">Category: {{this.article.category.name}}</button>
+<button type="button" id="download-btn" class="btn btn-success">Download</button>
 
-            <div class="right">
-                <h3 class="heading-3">
-                    News about {{this.article.category.name}}
-                </h3>
-                <div class="lists">
-                    {{#each newest5Articles as |article|}}
-                    <div class="list">
-                        <a href="/details?id={{article._id}}"><img src="{{article.image_url}}" alt="photo 1"></a>
-                        <div>
-                            <p class="title" style="font-weight: bold; margin-top: 5px;"><a href="/details?id={{article._id}}">{{article.title}}</a></p>
-                            Views: {{article.views}}  
-                        </div>
+<div class="main">
+    <div class="home">
+        <div class="left">
+            <blockquote>
+                <h1>{{this.article.title}}</h1>
+                <article>
+                    {{{this.article.content}}}
+                </article>
+            </blockquote>
+            {{!-- {{#each article.image_url}}
+                <img src="{{this}}" alt="Paper Photos" />
+            {{/each}} --}}
+        </div>
+
+        <div class="right">
+            <h3 class="heading-3">
+                News about {{this.article.category.name}}
+            </h3>
+            <div class="lists">
+                {{#each newest5Articles as |article|}}
+                <div class="list">
+                    <a href="/details?id={{article._id}}"><img src="{{article.image_url}}" alt="photo 1"></a>
+                    <div>
+                        <p class="title" style="font-weight: bold; margin-top: 5px;"><a href="/details?id={{article._id}}">{{article.title}}</a></p>
+                        Views: {{article.views}}  
                     </div>
-                    <hr>
-                    {{/each}}
                 </div>
+                <hr>
+                {{/each}}
             </div>
         </div>
-
-        <div style="margin-bottom: 50px;">
-            <h4>Image</h4>
-            {{#each this.article.image_url}}
-                <div class="video-container">
-                    <img src="{{this}}" alt="image">
-                </div>
-            {{/each}}
-        </div>
-
-        <div style="margin-bottom: 50px;">
-            <h4>Video</h4>
-            {{#each video_url}}
-                <div class="video-container">
-                    <iframe width="560" height="315" src="{{this}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            {{/each}}
-        </div>
-
-        <div class="cards">
-            <div class="card">
-                <div class="heading-4">Title</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, nostrum officiis eos eligendi
-                    hic sequi tenetur cupiditate doloremque incidunt aperiam amet nisi eaque molestias ab corporis
-                    tempora voluptatem vitae quas?</p>
-            </div>
-
-            <div class="card">
-                <div class="heading-4">Title</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit expedita voluptate repellendus
-                    pariatur et voluptatibus animi inventore omnis blanditiis iure?</p>
-            </div>
-
-            <div class="card">
-                <div class="heading-4">Title</div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut delectus suscipit voluptates optio
-                    atque praesentium sint magni commodi at nostrum, illum quia eum facilis consequatur vitae est
-                    soluta ex animi tempore id temporibus impedit itaque. Beatae ipsam magni ducimus magnam?</p>
-            </div>
-        </div>    
     </div>
 
+    <div style="margin-bottom: 50px;">
+        <h4>Image</h4>
+        {{#each this.article.image_url}}
+            <div class="video-container">
+                <img src="{{this}}" alt="image">
+            </div>
+        {{/each}}
+    </div>
+
+    <div style="margin-bottom: 50px;">
+        <h4>Video</h4>
+        {{#each video_url}}
+            <div class="video-container">
+                <iframe width="560" height="315" src="{{this}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <div class="heading-4">Title</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, nostrum officiis eos eligendi
+                hic sequi tenetur cupiditate doloremque incidunt aperiam amet nisi eaque molestias ab corporis
+                tempora voluptatem vitae quas?</p>
+        </div>
+
+        <div class="card">
+            <div class="heading-4">Title</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit expedita voluptate repellendus
+                pariatur et voluptatibus animi inventore omnis blanditiis iure?</p>
+        </div>
+
+        <div class="card">
+            <div class="heading-4">Title</div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut delectus suscipit voluptates optio
+                atque praesentium sint magni commodi at nostrum, illum quia eum facilis consequatur vitae est
+                soluta ex animi tempore id temporibus impedit itaque. Beatae ipsam magni ducimus magnam?</p>
+        </div>
+    </div>    
 </div>
+
 
 <p class="views">
     Lượt đọc: {{this.article.views}} lượt
@@ -131,4 +131,57 @@
         <p><strong>Comment:</strong> Great News!</p>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+<script>
+  document.getElementById("download-btn").addEventListener("click", async function () {
+    // Chọn phần tử chứa nội dung thân bài
+    const content = document.querySelector(".main");
+
+    if (!content) {
+      alert("Không tìm thấy phần thân bài!");
+      return;
+    }
+
+    // Ẩn tất cả hình ảnh và video trong phần tử .main
+    const images = content.querySelectorAll("img");
+    const videos = content.querySelectorAll("iframe");
+    images.forEach(img => img.style.display = "none");
+    videos.forEach(video => video.style.display = "none");
+
+    // Sử dụng html2canvas để chuyển đổi nội dung thành hình ảnh
+    const canvas = await html2canvas(content, {
+      scale: 2, // Tăng chất lượng hình ảnh
+      useCORS: true, // Hỗ trợ nội dung từ các nguồn khác
+    });
+
+    // Hiện lại tất cả hình ảnh và video sau khi xử lý
+    images.forEach(img => img.style.display = "");
+    videos.forEach(video => video.style.display = "");
+
+    const imgData = canvas.toDataURL("image/png");
+
+    // Tạo file PDF
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF("p", "mm", "a4"); // Tạo PDF khổ A4
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+
+    // Tính toán kích thước và xử lý đa trang
+    const imgWidth = pdfWidth;
+    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    let y = 0; // Vị trí bắt đầu
+    while (y < imgHeight) {
+      pdf.addImage(imgData, "PNG", 0, -y, imgWidth, imgHeight);
+      y += pdfHeight; // Chuyển vị trí để in nội dung kế tiếp
+      if (y < imgHeight) {
+        pdf.addPage(); // Thêm trang mới
+      }
+    }
+
+    // Lưu file PDF
+    pdf.save("article_content.pdf");
+  });
+</script>
