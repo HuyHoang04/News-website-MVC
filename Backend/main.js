@@ -423,12 +423,40 @@ app.post("/user", async (req, res) => {
   const user = await userController.createUser(userData);
   res.redirect("/administrator");
 });
+app.post("/register", async function rootHandler(req, res) {
+  try {
+    const newUser = new User({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      full_name: req.body.full_name,
+    });
+    if (!(newUser.password === req.body.confirm_password)) {
+      res.send("Confirm password different from password");
+      return;
+    }
+    const existUser = await User.find({ username: newUser.username }).lean();
+    if (existUser) {
+      res.send("Username already existed!");
+      return;
+    }
+
+    const hashedPassword = await bcrypt.hash(newUser.password, 10);
+    newUser.password = hashedPassword; //hash password
+
+    console.log(newUser);
+    await newUser.save();
+    res.send("Register successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error adding new user");
+  }
+});
 app.post("/user/delete/:id", async (req, res) => {
   const id = req.params.id;
   await userController.deleteUser(id);
   res.redirect("/administrator");
 });
-
 app.get("/login", function rootHandler(req, res) {
   res.render("login");
 });

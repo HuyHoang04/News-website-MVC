@@ -1,5 +1,7 @@
 <div class="login-body">
-
+    {{#if message}}
+        <p>{{message}}</p>
+    {{/if}}
     <!-- Login/Register Form -->
     <form action="/login" method="post">
         <div class="register-container">
