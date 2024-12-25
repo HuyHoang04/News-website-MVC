@@ -397,6 +397,16 @@ app.post("/user", async (req, res) => {
   const user = await userController.createUser(userData);
   res.redirect("/administrator");
 });
+
+app.post("/register", async (req, res) => {
+  const userData = {
+    username: req.body.username,  
+    email: req.body.userEmail,       
+    password: req.body.userPass,  
+  };
+  const user = await userController.createUser(userData);
+  res.redirect("/administrator");
+});
 app.get("/login", function rootHandler(req, res) {
   res.render("login");
 });
