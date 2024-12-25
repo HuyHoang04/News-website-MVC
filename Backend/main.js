@@ -310,17 +310,21 @@ app.post("/login", async (req, res) => {
 
     const { role, token } = result;
 
-    // Gửi token qua header
-    res.setHeader("Authorization", `Bearer ${token}`);
+    // Gửi token qua cookie
+    res.cookie("token", token, {
+      httpOnly: true, // For security, ensures JavaScript cannot access the cookie
+      secure: process.env.NODE_ENV === "production", // Ensure cookie is secure in production
+      maxAge: 3600000, // 1 hour
+    });
 
     if (role === "administrator") {
-      res.redirect("/administrator");
+      return res.redirect("/administrator");
     } else if (role === "writer") {
-      res.redirect("/writer");
+      return res.redirect("/writer");
     } else if (role === "editor") {
-      res.redirect("/editor");
+      return res.redirect("/editor");
     } else {
-      res.redirect("/");
+      return res.redirect("/");
     }
   } catch (err) {
     res.status(500).json({ err: err });
@@ -511,7 +515,7 @@ app.post("/submit_article", async (req, res) => {
 
 app.get(
   "/editor",
-  middleware.verifyRole(["editor"]),
+  middleware.verifyRole("editor"),
   function rootHandler(req, res) {
     res.render("editor");
   }

@@ -1,25 +1,33 @@
 import jwt from "jsonwebtoken";
-
+const JWT_SECRET = "secret";
 export const middleware = {
-  verifyRole: (roles) => (req, res, next) => {
-    const authHeader = req.headers.authorization; // Get token from Authorization header
-
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-
-    const token = authHeader.split(" ")[1]; // Extract the token from the header
-
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Use your secret key here
-      if (!roles.includes(decoded.role)) {
-        return res.status(403).json({ message: "Forbidden" });
+  verifyRole: (role) => {
+    return (req, res, next) => {
+      console.log(req.cookies.token);
+      const token = req.cookies.token; // Get token from cookies
+      if (!token) {
+        return res.status(401).json({ message: "No token provided" });
       }
 
-      req.user = decoded; // Attach the decoded user info to the request object
-      next();
-    } catch (error) {
-      res.status(401).json({ message: "Unauthorized", error });
-    }
+      // Verify the token and decode it
+      jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) {
+          return res.status(403).json({ message: "Invalid token" });
+        }
+
+        // Attach the decoded role to the request object
+        req.role = decoded.role;
+
+        // Check if the user's role matches the required role
+        if (role && req.role !== role) {
+          return res
+            .status(403)
+            .json({ message: "Access denied: insufficient role" });
+        }
+
+        // Proceed to the next middleware or route handler
+        next();
+      });
+    };
   },
 };
