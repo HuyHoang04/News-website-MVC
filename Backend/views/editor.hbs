@@ -12,106 +12,89 @@
                         <th>Summary</th>
                         <th>Category</th>
                         <th>Action</th>
+                        <th>Premium</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Sample data -->
+                    {{#each getPendingArticlesByUser}}
+                    <input type="hidden" id="articleId{{@index}}" value="{{this._id}}">
                     <tr>
-                        <td>Artificial Intelligence Applications in Healthcare</td>
-                        <td>An article about how AI is revolutionizing the healthcare industry...</td>
-                        <td>Technology</td>
+                        <td>{{this.title}}</td>
+                        <td>{{this.status}}</td>
+                        <td>{{this.category.name}}</td>
+                        <td>{{this.premium}}</td>
                         <td>
-                            <button onclick="showEditModal('Artificial Intelligence Applications in Healthcare')">Approve</button>
-                            <button onclick="showRejectModal('Artificial Intelligence Applications in Healthcare')">Reject</button>
+                            <button onClick="copyValue('articleId{{@index}}', 'articleId' )"  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleModal" data-bs-whatever="@fat" onclick="">Approve</button>
+                            <button onClick="copyValue('articleId{{@index}}', 'articleIdReject' )"  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleModalReject" data-bs-whatever="@fat" onclick="">Reject</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Global Economic Situation 2024</td>
-                        <td>Major economic trends in 2024...</td>
-                        <td>Economy</td>
-                        <td>
-                            <button onclick="showEditModal('Global Economic Situation 2024')">Approve</button>
-                            <button onclick="showRejectModal('Global Economic Situation 2024')">Reject</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Highlighting Major Sports Events</td>
-                        <td>A roundup of the most anticipated sports events...</td>
-                        <td>Sports</td>
-                        <td>
-                            <button onclick="showEditModal('Highlighting Major Sports Events')">Approve</button>
-                            <button onclick="showRejectModal('Highlighting Major Sports Events')">Reject</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Environmental Challenges and Climate Change</td>
-                        <td>The global environmental issues affecting the world...</td>
-                        <td>Environment</td>
-                        <td>
-                            <button onclick="showEditModal('Environmental Challenges and Climate Change')">Approve</button>
-                            <button onclick="showRejectModal('Environmental Challenges and Climate Change')">Reject</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>New Technology Inventions in 2024</td>
-                        <td>Discover the technological inventions that are changing lives...</td>
-                        <td>Technology</td>
-                        <td>
-                            <button onclick="showEditModal('New Technology Inventions in 2024')">Approve</button>
-                            <button onclick="showRejectModal('New Technology Inventions in 2024')">Reject</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>The Reality of Education in Remote Areas</td>
-                        <td>Evaluating the quality of education in remote and difficult areas...</td>
-                        <td>Education</td>
-                        <td>
-                            <button onclick="showEditModal('The Reality of Education in Remote Areas')">Approve</button>
-                            <button onclick="showRejectModal('The Reality of Education in Remote Areas')">Reject</button>
-                        </td>
-                    </tr>
+                    {{/each}}
+
+
                 </tbody>
             </table>
         </section>
-
-        <!-- Modal: Approve article -->
-        <div id="editModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal('editModal')">&times;</span>
-                <h2>Approve Article</h2>
-                <form id="approveForm">
-                    <label for="editCategory">Category:</label>
-                    <select id="editCategory" name="editCategory" required>
-                        <option value="tech">Technology</option>
-                        <option value="science">Science</option>
-                        <option value="art">Art</option>
-                        <option value="health">Health</option>
-                        <option value="education">Education</option>
-                        <option value="travel">Travel</option>
-                    </select><br><br>
-
-                    <label for="editTags">Tags:</label>
-                    <input type="text" id="editTags" name="editTags" placeholder="Tag the article"><br><br>
-
-                    <label for="publishDate">Publish Date:</label>
-                    <input type="datetime-local" id="publishDate" name="publishDate" required><br><br>
-
-                    <button type="submit">Approve Article</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Modal: Reject article -->
-        <div id="rejectModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal('rejectModal')">&times;</span>
-                <h2>Reject Article</h2>
-                <form id="rejectForm">
-                    <label for="rejectReason">Reason for Rejection:</label>
-                    <textarea id="rejectReason" name="rejectReason" required placeholder="Enter the reason for rejection..."></textarea><br><br>
-                    <button type="submit">Submit Reason</button>
-                </form>
-            </div>
-        </div>
     </div>
 </div>
+
+        <!-- Modal: Approve article -->
+<div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Approve</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/article/approve" method="POST" id="categoryForm">
+          <div class="mb-3">
+                <input type="hidden" id="articleId" name="articleId">
+                <label for="publishDate">Publish Date:</label>
+                <input type="datetime-local" id="publishDate" name="publishDate" required><br><br>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="articleModalReject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Reject</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/article/reject" method="POST" id="categoryForm">
+          <div class="mb-3">
+                <input type="hidden" id="articleIdReject" name="articleIdReject">
+                <label for="rejectReason">Reject Reason:</label>
+                <input type="text" id="rejectReason" name="rejectReason" required><br><br>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script>
+        function copyValue(idInput, idOutput) {
+            // Lấy giá trị từ Input 1
+            const input1Value = document.getElementById(`${idInput}`).value;
+
+            // Gán giá trị cho Input 2
+            document.getElementById(`${idOutput}`).value = input1Value;
+        }
+    </script>

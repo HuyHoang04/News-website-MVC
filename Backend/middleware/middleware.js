@@ -16,8 +16,10 @@ export const middleware = {
         }
 
         // Attach the decoded role to the request object
-        req.role = decoded.role;
 
+        req.role = decoded.role;
+        req.username = decoded.username;
+        req.userId = decoded.userId;
         // Check if the user's role matches any of the required roles
         if (roles && !roles.includes(req.role)) {
           return res

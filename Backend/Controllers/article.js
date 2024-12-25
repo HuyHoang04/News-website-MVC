@@ -5,6 +5,59 @@ import { Tag } from "../Models/tag.js";
 import mongoose from "mongoose";
 
 export const articleController = {
+  publishArticle: async (articleId) => {
+    if (!articleId) {
+      console.error("Article ID is required");
+      return null;
+    }
+
+    try {
+      const updatedArticle = await Article.findByIdAndUpdate(
+        articleId,
+        { status: "published", rejectionNote: null }, // Nullify rejection note if publishing
+        { new: true }
+      )
+        .populate("category")
+        .populate("tags")
+        .populate("author")
+        .lean();
+
+      if (!updatedArticle) {
+        console.error("Article not found");
+        return null;
+      }
+
+      return updatedArticle;
+    } catch (error) {
+      console.error("Error publishing article:", error);
+      return null;
+    }
+  },
+
+  // Reject an article with a note
+  rejectArticle: async (articleId, note) => {
+    try {
+      const updatedArticle = await Article.findByIdAndUpdate(
+        articleId,
+        { status: "rejected", rejectionNote: note }, // Set rejection note
+        { new: true }
+      )
+        .populate("category")
+        .populate("tags")
+        .populate("author")
+        .lean();
+
+      if (!updatedArticle) {
+        console.error("Article not found");
+        return null;
+      }
+
+      return updatedArticle;
+    } catch (error) {
+      console.error("Error rejecting article:", error);
+      return null;
+    }
+  },
   getPendingArticlesByUser: async (userId) => {
     if (!userId) {
       console.error("User ID is required");

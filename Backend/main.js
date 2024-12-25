@@ -507,38 +507,58 @@ app.get("/writer", async function rootHandler(req, res) {
   });
 });
 
-app.post("/submit_article", async (req, res) => {
-  try {
-    const newArticle = new Article({
-      title: req.body.title,
-      content: req.body.content,
-      image_url: req.body.image_url || [], // Nếu có file, lưu đường dẫn tệp vào image_url
-      video_url: req.body.video_url || [], // Nếu có video_url, lưu nó
-      premium: req.body.premium === "true", // Chuyển đổi thành boolean
-      status: "pending",
-      author: "6768f1f8ea0ac66458f565fb", // ID người tạo bài viết/đăng nhập
-      category: req.body.category,
-      tags: req.body.tags || [], // Chuyển chuỗi tags thành mảng ID
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      views: 0, // Mặc định là 0
-    });
-    // Lưu bài viết
-    await newArticle.save();
-    console.log(newArticle);
-    res.send("Article saved successfully");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error saving article");
+app.post(
+  "/submit_article",
+  middleware.verifyRole(["writer", "administrator"]),
+  async (req, res) => {
+    try {
+      const newArticle = new Article({
+        title: req.body.title,
+        content: req.body.content,
+        image_url: req.body.image_url || [], // Nếu có file, lưu đường dẫn tệp vào image_url
+        video_url: req.body.video_url || [], // Nếu có video_url, lưu nó
+        premium: req.body.premium === "true", // Chuyển đổi thành boolean
+        status: "pending",
+        author: req.userId, // ID người tạo bài viết/đăng nhập
+        category: req.body.category,
+        tags: req.body.tags || [], // Chuyển chuỗi tags thành mảng ID
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        views: 0, // Mặc định là 0
+      });
+      // Lưu bài viết
+      await newArticle.save();
+      console.log(newArticle);
+      res.send("Article saved successfully");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error saving article");
+    }
   }
-});
+);
 ///////////////
-
+app.post("/article/approve", function (req, res) {
+  const articleId = req.body.articleId;
+  articleController.publishArticle(articleId);
+  res.redirect("/editor");
+});
+app.post("/article/reject", function (req, res) {
+  console.log(req.body);
+  const articleId = req.body.articleIdReject;
+  const note = req.body.rejectNote;
+  articleController.rejectArticle(articleId, note);
+  res.redirect("/editor");
+});
 app.get(
   "/editor",
   middleware.verifyRole(["editor", "administrator"]),
-  function rootHandler(req, res) {
-    res.render("editor");
+  async function rootHandler(req, res) {
+    const getPendingArticlesByUser =
+      await articleController.getPendingArticlesByUser(req.userId);
+    console.log("User's username:", req.userId);
+    res.render("editor", {
+      getPendingArticlesByUser: getPendingArticlesByUser,
+    });
   }
 );
 
