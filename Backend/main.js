@@ -514,6 +514,10 @@ app.get("/about", function rootHandler(req, res) {
   res.render("about");
 });
 
+app.get("/subcribe", function rootHandler(req, res) {
+  res.render("subcribe");
+});
+
 app.get("/administrator", async function (req, res) {
   const allCategories = await categoryController.getAllCategories();
   const allTags = await tagController.getAllTags();
