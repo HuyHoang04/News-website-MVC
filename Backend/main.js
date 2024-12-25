@@ -2,6 +2,7 @@ import express from "express";
 import { engine } from "express-handlebars";
 import { connectDB } from "./utils/db.js";
 import { login } from "./Controllers/auth.js";
+import { middleware } from "./middleware/middleware.js";
 
 import bcrypt from "bcryptjs";
 
@@ -9,11 +10,13 @@ import { articleController } from "./Controllers/article.js";
 import { categoryController } from "./Controllers/category.js";
 import { tagController } from "./Controllers/tag.js";
 import { userController } from "./Controllers/user.js";
+import cookieParser from "cookie-parser";
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
+app.use(cookieParser());
 
 app.engine("hbs", engine({}));
 app.set("view engine", "hbs");
@@ -307,19 +310,18 @@ app.post("/login", async (req, res) => {
 
     const { role, token } = result;
 
-    res.cookie("token", token, {
-      httpOnly: true, // Không thể truy cập từ JavaScript
-      secure: "production", // Chỉ gửi qua HTTPS trong production
-      maxAge: 3600000, // Cookie tồn tại 1 giờ
-    });
+    // Gửi token qua header
+    res.setHeader("Authorization", `Bearer ${token}`);
 
-    if (role == "administrator") {
+    if (role === "administrator") {
       res.redirect("/administrator");
-    } else if (role == "writer") {
+    } else if (role === "writer") {
       res.redirect("/writer");
-    } else if (role == "editor") {
+    } else if (role === "editor") {
       res.redirect("/editor");
-    } else res.redirect("/");
+    } else {
+      res.redirect("/");
+    }
   } catch (err) {
     res.status(500).json({ err: err });
   }
@@ -421,6 +423,11 @@ app.post("/user", async (req, res) => {
   const user = await userController.createUser(userData);
   res.redirect("/administrator");
 });
+app.post("/user/delete/:id", async (req, res) => {
+  const id = req.params.id;
+  await userController.deleteUser(id);
+  res.redirect("/administrator");
+});
 
 app.get("/login", function rootHandler(req, res) {
   res.render("login");
@@ -437,9 +444,6 @@ app.get("/writer", async function rootHandler(req, res) {
     category: category,
     tag: await tagController.getAllTags(),
   });
-});
-app.get("/editor", function rootHandler(req, res) {
-  res.render("editor");
 });
 
 app.post("/administrator/editor/addcategory", async (req, res) => {
@@ -458,7 +462,7 @@ app.post("/submit_article", async (req, res) => {
       image_url: req.body.image_url || [], // Nếu có file, lưu đường dẫn tệp vào image_url
       video_url: req.body.video_url || [], // Nếu có video_url, lưu nó
       premium: req.body.premium === "true", // Chuyển đổi thành boolean
-      status: "draft",
+      status: "pending",
       author: "6768f1f8ea0ac66458f565fb", // ID người tạo bài viết/đăng nhập
       category: req.body.category,
       tags: req.body.tags || [], // Chuyển chuỗi tags thành mảng ID
@@ -477,9 +481,13 @@ app.post("/submit_article", async (req, res) => {
 });
 ///////////////
 
-app.get("/editor", function rootHandler(req, res) {
-  res.render("editor");
-});
+app.get(
+  "/editor",
+  middleware.verifyRole(["editor"]),
+  function rootHandler(req, res) {
+    res.render("editor");
+  }
+);
 
 app.get("/about", function rootHandler(req, res) {
   res.render("about");

@@ -130,8 +130,9 @@
                         <td>{{this.full_name}}</td>
                         <td>{{this.role}}</td>
                         <td>
-                            <button>Edit</button>
+                            <form action="/user/delete/{{this._id}}" method="post" style="display: inline;">
                             <button>Delete</button>
+                            </form>
                         </td>
                     </tr>
                     {{/each}}

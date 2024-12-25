@@ -1,6 +1,14 @@
 import { User } from "../Models/user.js";
 import bcrypt from "bcryptjs";
 export const userController = {
+  getAllUsers: async () => {
+    try {
+      const users = await User.find().lean();
+      return users;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
   addAvailableCategory: async (userId, categoryId) => {
     if (!userId || !categoryId) {
       throw new Error("User ID and Category ID are required");
@@ -86,8 +94,6 @@ export const userController = {
       throw new Error(error.message);
     }
   },
-
-  
 
   // READ a single user by ID
   getUserById: async (id) => {
