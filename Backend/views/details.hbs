@@ -1,3 +1,4 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <div class="container">
     <header>
         <div class="sub-heading">
@@ -28,6 +29,7 @@
             <div class="left">
                 <blockquote>
                     <h1>{{this.article.title}}</h1>
+                     <button id="download">Tải PDF</button>
                     <article>
                         {{{this.article.content}}}
                     </article>
@@ -131,4 +133,23 @@
         <p><strong>Comment:</strong> Great News!</p>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        document.getElementById("download").addEventListener("click", () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
 
+            // Lấy nội dung HTML
+            const content = document.getElementById("content").innerHTML;
+
+            // Thêm nội dung HTML vào PDF
+            doc.html(content, {
+                callback: function (doc) {
+                    doc.save('document.pdf'); // Lưu file PDF
+                },
+                margin: [10, 10, 10, 10],
+                x: 10,
+                y: 10
+            });
+        });
+    </script>
