@@ -28,6 +28,7 @@
         <div class="home">
             <div class="left">
                 <blockquote>
+                    <h1>{{this.article.title}}</h1>
                     <article>
                         {{{this.article.content}}}
                     </article>
@@ -39,7 +40,7 @@
 
             <div class="right">
                 <h3 class="heading-3">
-                    Top 5 News about {{this.article.category.name}}
+                    News about {{this.article.category.name}}
                 </h3>
                 <div class="lists">
                     {{#each newest5Articles as |article|}}
@@ -50,6 +51,7 @@
                             Views: {{article.views}}  
                         </div>
                     </div>
+                    <hr>
                     {{/each}}
                 </div>
             </div>

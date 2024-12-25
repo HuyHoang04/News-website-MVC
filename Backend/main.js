@@ -22,7 +22,7 @@ await connectDB();
 app.engine(
   "hbs",
   engine({
-    extname: "hbs",
+    extname: "hbs"
   })
 );
 // async function seedUsers() {
@@ -292,7 +292,7 @@ app.get("/", async function rootHandler(req, res) {
     article3: articles[2],
     topViewedArticles: topViewedArticles,
     newestArticles: newestArticles,
-    latestArticlesFromCategories: latestArticlesFromCategories,
+    latestArticlesFromCategories: latestArticlesFromCategories
   });
 });
 
@@ -310,7 +310,7 @@ app.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // Không thể truy cập từ JavaScript
       secure: "production", // Chỉ gửi qua HTTPS trong production
-      maxAge: 3600000, // Cookie tồn tại 1 giờ
+      maxAge: 3600000 // Cookie tồn tại 1 giờ
     });
 
     if (role == "administrator") {
@@ -336,14 +336,14 @@ app.get("/details", async function rootHandler(req, res) {
   const category = await categoryController.getCategoryByName(name);
   const articles = await Article.find({
     category: category._id,
-    status: "published",
+    status: "published"
   })
     .limit(5)
     .lean();
 
   res.render("details", {
     article: data,
-    newest5Articles: articles,
+    newest5Articles: articles
   });
 });
 app.post("/category", function (req, res) {
@@ -377,12 +377,13 @@ app.get("/category", async function rootHandler(req, res) {
 
   const articles = await Article.find({
     category: category._id,
-    status: "published",
+    status: "published"
   }).lean();
   res.render("list", {
     CategoryName: req.query.name,
     des: category.description,
     article: articles,
+    newest5Articles: newest5Articles //Cho right-container
   });
 });
 app.post("/user", async (req, res) => {
@@ -391,7 +392,7 @@ app.post("/user", async (req, res) => {
     password: req.body.userPass,
     email: req.body.userEmail,
     full_name: req.body.userFullName,
-    role: req.body.userRole,
+    role: req.body.userRole
   };
   const user = await userController.createUser(userData);
   res.redirect("/administrator");
@@ -404,16 +405,51 @@ app.get("/register", function rootHandler(req, res) {
   res.render("register");
 });
 
-app.get("/writer", function rootHandler(req, res) {
-  res.render("writer");
+//////////// For writer
+app.get("/writer", async function rootHandler(req, res) {
+  const category = await categoryController.getAllCategories();
+  res.render("writer", {
+    category: category,
+    tag: await tagController.getAllTags()
+  });
 });
+app.get("/editor", function rootHandler(req, res) {
+  res.render("editor");
+});
+
+app.post("/submit_article", async (req, res) => {
+  try {
+    const newArticle = new Article({
+      title: req.body.title,
+      content: req.body.content,
+      image_url: req.body.image_url || [], // Nếu có file, lưu đường dẫn tệp vào image_url
+      video_url: req.body.video_url || [], // Nếu có video_url, lưu nó
+      premium: req.body.premium === "true", // Chuyển đổi thành boolean
+      status: "draft",
+      author: "6768f1f8ea0ac66458f565fb", // ID người tạo bài viết/đăng nhập
+      category: req.body.category,
+      tags: req.body.tags || [], // Chuyển chuỗi tags thành mảng ID
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      views: 0 // Mặc định là 0
+    });
+    // Lưu bài viết
+    await newArticle.save();
+    console.log(newArticle);
+    res.send("Article saved successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error saving article");
+  }
+});
+///////////////
 
 app.get("/editor", function rootHandler(req, res) {
   res.render("editor");
 });
 
 app.get("/about", function rootHandler(req, res) {
-  res.render("about")
+  res.render("about");
 });
 
 app.get("/administrator", async function (req, res) {
@@ -425,7 +461,7 @@ app.get("/administrator", async function (req, res) {
     allCategory: allCategories,
     allTags: allTags,
     getPendingArticles: getPendingArticles,
-    getAllUsers: getAllUsers,
+    getAllUsers: getAllUsers
   });
 });
 app.listen(3000, function () {

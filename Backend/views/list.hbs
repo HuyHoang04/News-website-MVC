@@ -75,7 +75,6 @@ h4 {
     margin-left: 50px;
     display: flex;
 }
-
 </style>
 
 <div class="big">
@@ -102,7 +101,7 @@ h4 {
         </h3>
         <div class="lists">
             {{#each newest5Articles as |article|}}
-            <div class="list">
+            <div class="list" style="margin-bottom: 50px;";>
                 <a href="/details?id={{article._id}}"><img src="{{article.image_url}}" alt="photo 1"></a>
                 <p style="font-weight: bold"><a href="/details?id={{article._id}}">{{article.title}}</a></p>
             </div>
