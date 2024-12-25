@@ -1,13 +1,3 @@
-<script src="https://cdn.tiny.cloud/1/svikhmyv12p8qibixgzn9m8f1c49iha2wv0vwu9y4bmjqqkr/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-    tinymce.init({
-        selector: '#content',
-        plugins: 'code',
-        toolbar: 'undo redo | styles selectall | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | link image | code',
-        menubar: 'file edit view format table tools help'
-    });
-</script>
-
 <div class="article-management">
     <div class="container">
         <h1>Article Management</h1>
@@ -22,12 +12,9 @@
                 <label for="category">Category:</label>
                 <select id="category" name="category" required>
                     {{#each category }}
-                        <option name="category" value="{{this._id}}">{{this.name}}</option>
+                    <option name="category" value="{{this._id}}">{{this.name}}</option>
                     {{/each}}
-                </select><br><br> 
-
-                {{!-- <label for="summary">Summary:</label>
-                <textarea id="summary" name="summary" required></textarea><br><br> --}}
+                </select><br><br>
 
                 <label for="content">Content:</label>
                 <textarea id="content" name="content"></textarea><br><br>
@@ -36,9 +23,14 @@
                     <label for="tags">Select Tags:</label>
                     <select id="tags" name="tags[]" multiple size="4" onchange="updateSelectedTags()">
                         {{#each tag }}
-                            <option name="tags" value="{{this._id}}">{{this.name}}</option>
+                        <option name="tags" value="{{this._id}}">{{this.name}}</option>
                         {{/each}}
                     </select><br><br>
+
+                    <div id="selected-tags-container">
+                        <p>Selected Tags:</p>
+                        <div id="selected-tags-list" class="selected-tags"></div>
+                    </div>
                 </div>
 
                 <label for="image">Link image :</label>

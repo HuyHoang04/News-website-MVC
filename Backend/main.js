@@ -368,6 +368,7 @@ app.post("/tag/delete/:id", async function (req, res) {
   tagController.deleteTag(id);
   res.redirect("/administrator");
 });
+
 app.get("/category", async function rootHandler(req, res) {
   const name = req.query.name || 0;
   const category = await categoryController.getCategoryByName(name);
@@ -386,6 +387,7 @@ app.get("/category", async function rootHandler(req, res) {
     newest5Articles: newest5Articles //Cho right-container
   });
 });
+
 app.post("/user", async (req, res) => {
   const userData = {
     username: req.body.username,
@@ -397,6 +399,7 @@ app.post("/user", async (req, res) => {
   const user = await userController.createUser(userData);
   res.redirect("/administrator");
 });
+
 app.get("/login", function rootHandler(req, res) {
   res.render("login");
 });
