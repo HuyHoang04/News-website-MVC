@@ -550,6 +550,13 @@ app.post("/article/approve", function (req, res) {
   articleController.publishArticle(articleId);
   res.redirect("/editor");
 });
+app.post("/article/reject", function (req, res) {
+  console.log(req.body);
+  const articleId = req.body.articleIdReject;
+  const note = req.body.rejectNote;
+  articleController.rejectArticle(articleId, note);
+  res.redirect("/editor");
+});
 app.get(
   "/editor",
   middleware.verifyRole(["editor", "administrator"]),
