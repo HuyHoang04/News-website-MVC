@@ -542,6 +542,23 @@ app.post("/article/approve", function (req, res) {
   articleController.publishArticle(articleId);
   res.redirect("/editor");
 });
+app.post("/article/reject", async function (req, res) {
+  console.log(req.body);
+
+  const articleId = req.body.articleIdReject;
+  const note = req.body.rejectNote;
+
+  // Call rejectArticle and await the result
+  const updatedArticle = await articleController.rejectArticle(articleId, note);
+
+  if (updatedArticle) {
+    // Redirect if the article was successfully updated
+    res.redirect("/editor");
+  } else {
+    // Handle error if the article couldn't be updated
+    res.status(500).send("Error rejecting the article.");
+  }
+});
 app.get(
   "/editor",
   middleware.verifyRole(["editor", "administrator"]),

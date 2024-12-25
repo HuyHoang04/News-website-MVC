@@ -36,11 +36,6 @@ export const articleController = {
 
   // Reject an article with a note
   rejectArticle: async (articleId, note) => {
-    if (!articleId || !note) {
-      console.error("Article ID and note are required");
-      return null;
-    }
-
     try {
       const updatedArticle = await Article.findByIdAndUpdate(
         articleId,
