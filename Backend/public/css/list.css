@@ -1,0 +1,84 @@
+.articles-list .category {
+    margin: 30px 0 0 30px;
+    font-size: larger;
+}
+
+.articles-list .des {
+    margin: 10px 0 20px 30px;
+    font-size: large;
+}
+
+.articles-list .article:hover {
+    background-color: #E0E0E0;
+    border-radius: 20px;
+}
+
+.articles-list h4 {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+.articles-list p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.articles-list .article img {
+    width: 350px;
+    height: auto;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.articles-list .article a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.articles-list .article a:hover {
+    text-decoration: underline;
+    color: red;
+}
+
+.articles-list hr {
+    background-color: 20px #555;
+    width: 90%;
+    height: 10px;
+}
+
+.articles-list h4 {
+    margin-top: 8px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.articles-list .big {
+    display: flex;
+    justify-content: space-around;
+}
+
+.articles-list .right {
+    margin-top: 30px;
+    margin-right: 150px;
+    border-left: 2px solid #f0f0f0;
+    height: 1200px;
+}
+
+.articles-list .left {
+    width: 100%;
+    height: auto;
+}
+
+.articles-list .article {
+    height: auto;
+    width: 90%;
+    margin-left: 50px;
+    display: flex;
+}
+
+.articles-list .right .list a {
+    text-decoration: none; /* Removes the underline */
+}
+
