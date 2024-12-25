@@ -20,7 +20,15 @@ export const userController = {
     }
   },
 
-  
+  // READ all users
+  getAllUsers: async () => {
+    try {
+      const users = await User.find().lean();
+      return users;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
 
   // READ a single user by ID
   getUserById: async (id) => {
