@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ["guest", "subscriber", "writer", "editor", "administrator"],
+    default: "guest",
     required: true,
   },
   subscription_expiration: {
