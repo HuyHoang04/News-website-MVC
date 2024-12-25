@@ -26,7 +26,7 @@ await connectDB();
 app.engine(
   "hbs",
   engine({
-    extname: "hbs"
+    extname: "hbs",
   })
 );
 // async function seedUsers() {
@@ -296,7 +296,7 @@ app.get("/", async function rootHandler(req, res) {
     article3: articles[2],
     topViewedArticles: topViewedArticles,
     newestArticles: newestArticles,
-    latestArticlesFromCategories: latestArticlesFromCategories
+    latestArticlesFromCategories: latestArticlesFromCategories,
   });
 });
 
@@ -362,7 +362,7 @@ app.get("/details", async function rootHandler(req, res) {
   const category = await categoryController.getCategoryByName(name);
   const articles = await Article.find({
     category: category._id,
-    status: "published"
+    status: "published",
   })
     .limit(5)
     .lean();
@@ -372,7 +372,7 @@ app.get("/details", async function rootHandler(req, res) {
   res.render("details", {
     article: data,
     newest5Articles: articles,
-    video_url: embedUrls
+    video_url: embedUrls,
   });
 });
 
@@ -408,13 +408,13 @@ app.get("/category", async function rootHandler(req, res) {
 
   const articles = await Article.find({
     category: category._id,
-    status: "published"
+    status: "published",
   }).lean();
   res.render("list", {
     CategoryName: req.query.name,
     des: category.description,
     article: articles,
-    newest5Articles: newest5Articles //Cho right-container
+    newest5Articles: newest5Articles, //Cho right-container
   });
 });
 
@@ -424,7 +424,7 @@ app.post("/user", async (req, res) => {
     password: req.body.userPass,
     email: req.body.userEmail,
     full_name: req.body.userFullName,
-    role: req.body.userRole
+    role: req.body.userRole,
   };
   const user = await userController.createUser(userData);
   res.redirect("/administrator");
@@ -435,7 +435,7 @@ app.post("/register", async function rootHandler(req, res) {
       username: req.body.username,
       password: req.body.password,
       email: req.body.email,
-      full_name: req.body.full_name
+      full_name: req.body.full_name,
     });
     if (!(newUser.password === req.body.confirm_password)) {
       res.send("Confirm password different from password");
@@ -488,14 +488,14 @@ app.get("/writer/articles", async function rootHandler(req, res) {
   }
   const articles = await Article.find({
     category: category._id,
-    status: "published"
+    status: "published",
   })
     .limit(5)
     .lean(); //addition
 
   res.render("articleOfWriter", {
     article: data,
-    newest5Articles: articles
+    newest5Articles: articles,
   });
 });
 
@@ -503,7 +503,7 @@ app.get("/writer", async function rootHandler(req, res) {
   const category = await categoryController.getAllCategories();
   res.render("writer", {
     category: category,
-    tag: await tagController.getAllTags()
+    tag: await tagController.getAllTags(),
   });
 });
 
@@ -521,7 +521,7 @@ app.post("/submit_article", async (req, res) => {
       tags: req.body.tags || [], // Chuyển chuỗi tags thành mảng ID
       createdAt: new Date(),
       updatedAt: new Date(),
-      views: 0 // Mặc định là 0
+      views: 0, // Mặc định là 0
     });
     // Lưu bài viết
     await newArticle.save();
@@ -536,7 +536,7 @@ app.post("/submit_article", async (req, res) => {
 
 app.get(
   "/editor",
-  middleware.verifyRole("editor"),
+  middleware.verifyRole(["editor", "administrator"]),
   function rootHandler(req, res) {
     res.render("editor");
   }
@@ -565,7 +565,7 @@ app.get("/administrator", async function (req, res) {
     getPendingArticles: getPendingArticles,
     getAllUsers: getAllUsers,
     getEditorsOnly: getEditorsOnly,
-    getAllCategories: getAllCategories
+    getAllCategories: getAllCategories,
   });
 });
 
@@ -577,7 +577,7 @@ app.get("/search", async (req, res) => {
       CategoryName: "Search Results",
       des: "No results found. Please try another query.",
       article: [],
-      newest5Articles: await articleController.getTop5NewestArticles()
+      newest5Articles: await articleController.getTop5NewestArticles(),
     });
   }
 
@@ -589,10 +589,10 @@ app.get("/search", async (req, res) => {
         {
           $or: [
             { title: { $regex: query, $options: "i" } },
-            { content: { $regex: query, $options: "i" } }
-          ]
-        }
-      ]
+            { content: { $regex: query, $options: "i" } },
+          ],
+        },
+      ],
     })
       .populate("category")
       .populate("tags")
@@ -602,7 +602,7 @@ app.get("/search", async (req, res) => {
       CategoryName: "Search Results",
       des: `Showing results for: "${query}"`,
       article: articles,
-      newest5Articles: await articleController.getTop5NewestArticles()
+      newest5Articles: await articleController.getTop5NewestArticles(),
     });
   } catch (err) {
     console.error("Search Error:", err);
@@ -618,7 +618,7 @@ app.get("/latest", async (req, res) => {
       CategoryName: "Latest News",
       des: "Browse the latest articles published.",
       article: articles,
-      newest5Articles: newest5Articles
+      newest5Articles: newest5Articles,
     });
   } catch (error) {
     console.error("Error loading latest articles:", error);

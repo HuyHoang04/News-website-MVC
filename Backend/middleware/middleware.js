@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 const JWT_SECRET = "secret";
 export const middleware = {
-  verifyRole: (role) => {
+  verifyRole: (roles) => {
     return (req, res, next) => {
       console.log(req.cookies.token);
       const token = req.cookies.token; // Get token from cookies
@@ -18,8 +18,8 @@ export const middleware = {
         // Attach the decoded role to the request object
         req.role = decoded.role;
 
-        // Check if the user's role matches the required role
-        if (role && req.role !== role) {
+        // Check if the user's role matches any of the required roles
+        if (roles && !roles.includes(req.role)) {
           return res
             .status(403)
             .json({ message: "Access denied: insufficient role" });
