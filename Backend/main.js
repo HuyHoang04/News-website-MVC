@@ -537,13 +537,21 @@ app.post(
   }
 );
 ///////////////
-
+app.post("/article/approve", function (req, res) {
+  const articleId = req.body.articleId;
+  articleController.publishArticle(articleId);
+  res.redirect("/editor");
+});
 app.get(
   "/editor",
   middleware.verifyRole(["editor", "administrator"]),
-  function rootHandler(req, res) {
+  async function rootHandler(req, res) {
+    const getPendingArticlesByUser =
+      await articleController.getPendingArticlesByUser(req.userId);
     console.log("User's username:", req.userId);
-    res.render("editor");
+    res.render("editor", {
+      getPendingArticlesByUser: getPendingArticlesByUser,
+    });
   }
 );
 

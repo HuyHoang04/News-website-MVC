@@ -17,6 +17,7 @@ const articleSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   views: { type: Number, default: 1 },
+  rejectionNote: { type: String },
 });
 
 export const Article = mongoose.model("Article", articleSchema);
