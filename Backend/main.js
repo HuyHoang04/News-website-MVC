@@ -521,8 +521,8 @@ app.get("/about", function rootHandler(req, res) {
   res.render("about");
 });
 
-app.get("/subcribe", function rootHandler(req, res) {
-  res.render("subcribe");
+app.get("/subscribe", function rootHandler(req, res) {
+  res.render("subscribe");
 });
 
 app.get("/administrator", async function (req, res) {
