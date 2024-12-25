@@ -464,6 +464,48 @@ app.get("/administrator", async function (req, res) {
     getAllUsers: getAllUsers
   });
 });
+
+app.get("/search", async (req, res) => {
+  const query = req.query.q || ""; // Get the search query
+
+  if (!query.trim()) {
+    return res.render("list", {
+      CategoryName: "Search Results",
+      des: "No results found. Please try another query.",
+      article: [],
+      newest5Articles: await articleController.getTop5NewestArticles(),
+    });
+  }
+
+  try {
+    // Find articles that match the query in title, abstract, or content
+    const articles = await Article.find({
+      $and: [
+        { status: "published" },
+        {
+          $or: [
+            { title: { $regex: query, $options: "i" } },
+            { content: { $regex: query, $options: "i" } },
+          ],
+        },
+      ],
+    })
+      .populate("category")
+      .populate("tags")
+      .lean();
+
+    res.render("list", {
+      CategoryName: "Search Results",
+      des: `Showing results for: "${query}"`,
+      article: articles,
+      newest5Articles: await articleController.getTop5NewestArticles(),
+    });
+  } catch (err) {
+    console.error("Search Error:", err);
+    res.status(500).send("Error during search");
+  }
+});
+
 app.listen(3000, function () {
   console.log("Server started on http://localhost:3000");
 });
