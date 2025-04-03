@@ -86,7 +86,7 @@ A web application for an Electronic Newspaper with various modules and functiona
         export const connectDB = async () => {
           try {
             await mongoose.connect(
-              "mongodb+srv://lahuyhoang04:123@cluster0.wnly6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" // Replace with your connection string
+               // Replace with your connection string
             );
             console.log("MongoDB connected successfully");
           } catch (err) {
