@@ -655,7 +655,11 @@ app.get("/latest", async (req, res) => {
   }
 });
 
+// Thay đổi cổng để hỗ trợ Vercel
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// Export app cho Vercel serverless function
+export default app;
